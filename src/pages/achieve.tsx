@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import React from "react";
+import { FaChevronLeft } from "react-icons/fa";
 import yoga from "../assets/yoga.png";
 import wom from "../assets/wom.png";
 import sta from "../assets/sta.png";
@@ -8,8 +7,10 @@ import img2 from "../assets/flower.png";
 import { useNavigate } from "react-router-dom";
 
 const AchieveWithUs: React.FC = () => {
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const navigate = useNavigate(); 
+  const [selectedOption, setSelectedOption] = React.useState<string | null>(
+    null
+  );
+  const navigate = useNavigate();
 
   const options = [
     {
@@ -40,29 +41,45 @@ const AchieveWithUs: React.FC = () => {
   const handleConfirm = () => {
     switch (selectedOption) {
       case "Fertility and Menstrual Health Tracking":
-        navigate("/herwaree/cycle"); 
+        navigate("/herwaree/cycle");
         break;
       case "Breast Health Monitoring":
         navigate("/herwaree/BreastFront");
         break;
       default:
-        navigate("/herwaree/goals"); 
+        navigate("/herwaree/goals");
         break;
     }
   };
 
   return (
-    <div className="relative bg-white max-w-lg mx-auto mt-8 overflow-x-hidden">
-      <div className="absolute top-4 left-4 z-10">
-        <FontAwesomeIcon
-          icon={faChevronLeft}
-          size="lg"
-          className="text-purple-500"
-        />
+    <div className="relative bg-white max-w-lg mx-auto overflow-x-hidden pt-12">
+      <div className="absolute -top-8 -right-10 w-28 h-28">
+        <img src={img2} alt="flower" className="object-contain" />
+      </div>
+
+      {/* Chevron with gradient */}
+      <div className="absolute top-4 left-4">
+        <div
+          className="p-2 rounded-full"
+          style={{
+            background: "linear-gradient(to right, #b976c5, #b390c9)",
+          }}
+        >
+          <FaChevronLeft className="text-2xl text-white cursor-pointer" />
+        </div>
       </div>
 
       <div className="pt-16 px-4">
-        <h1 className="text-xl font-bold text-purple-600 text-center mb-4">
+        {/* Title with gradient */}
+        <h1
+          className="text-xl font-bold text-center mb-4"
+          style={{
+            backgroundImage: "linear-gradient(to right, #b976c5, #b390c9)",
+            WebkitBackgroundClip: "text",
+            color: "transparent",
+          }}
+        >
           What will you like to achieve with us?
         </h1>
         <p className="text-sm text-gray-500 text-center mb-6">
@@ -74,7 +91,7 @@ const AchieveWithUs: React.FC = () => {
         {options.map((option, idx) => (
           <div
             key={idx}
-            className={`flex items-center justify-between p-3 border rounded-lg ${
+            className={`flex items-center justify-between p-3 border rounded-lg cursor-pointer transition-colors duration-300 ${
               selectedOption === option.title
                 ? "border-purple-500 bg-purple-50"
                 : "border-gray-300"
@@ -85,6 +102,10 @@ const AchieveWithUs: React.FC = () => {
                   ? "80px"
                   : "120px",
               width: "100%",
+              background:
+                selectedOption === option.title
+                  ? "rgba(183, 118, 197, 0.1)" // Slightly transparent gradient
+                  : "inherit",
             }}
             onClick={() => setSelectedOption(option.title)}
           >
@@ -107,7 +128,13 @@ const AchieveWithUs: React.FC = () => {
               type="checkbox"
               checked={selectedOption === option.title}
               readOnly
-              className="form-checkbox text-purple-500"
+              className="form-checkbox"
+              style={{
+                accentColor:
+                  selectedOption === option.title
+                    ? "linear-gradient(to right, #b976c5, #b390c9)"
+                    : "gray",
+              }}
             />
           </div>
         ))}
@@ -118,18 +145,17 @@ const AchieveWithUs: React.FC = () => {
         for you, yay!
       </p>
 
+      {/* Confirm button with gradient */}
       <div className="mt-6 px-4">
         <button
-          className="w-full py-3 bg-purple-500 text-white rounded-lg font-semibold hover:bg-purple-600 transition"
-          onClick={handleConfirm} 
+          className="w-full py-3 text-white rounded-lg font-semibold transition"
+          style={{
+            background: "linear-gradient(to right, #b976c5, #b390c9)",
+          }}
+          onClick={handleConfirm}
         >
           Confirm
         </button>
-      </div>
-
-
-      <div className="absolute -top-6 -right-14">
-        <img src={img2} alt="flower" className="h-20" />
       </div>
     </div>
   );

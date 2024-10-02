@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { FaChevronLeft } from "react-icons/fa";
 import img2 from "../assets/flower.png";
 
 const Cycle = () => {
@@ -10,37 +9,57 @@ const Cycle = () => {
 
   const handleConfirm = () => {
     if (selectedDuration) {
-      // Navigate to the next page when an option is selected
-      navigate("/herwaree/cycletracker"); // Replace with the actual route
+      navigate("/herwaree/cycletracker");
     }
   };
 
   const handleNotSure = () => {
-    // Navigate to the appropriate page for "Not Sure"
-    navigate("/herwaree/cycletracker"); // Replace with the actual route
+    navigate("/herwaree/cycletracker");
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-white">
+    <div className="min-h-screen flex-col items-center justify-center bg-white">
       {/* Main Container */}
+
       <div className="bg-white rounded-lg shadow-md p-6 w-full max-w-md relative overflow-hidden">
-        {/* Back Icon and Flower Image */}
-        <div className="flex justify-between items-center mb-4">
-          <button className="text-purple-500 z-10">
-            <FontAwesomeIcon icon={faChevronLeft} size="lg" />
-          </button>
+        <div className="flex justify-between items-center mb-14">
+          <div className="absolute top-4 left-4">
+            <div
+              className="p-2 rounded-full"
+              style={{
+                background: "linear-gradient(to right, #b976c5, #b390c9)",
+              }}
+              onClick={() => navigate(-1)}
+            >
+              <FaChevronLeft className="text-2xl text-white cursor-pointer" />
+            </div>
+          </div>
+
           {/* Decorative Flower */}
-          <img
-            src={img2}
-            alt="Flower Side Right"
-            className="fixed -top-8 -right-12 w-24 h-24 scale-110 drop-shadow-lg z-0"
-          />
+          <div className="absolute -top-16 -right-10 w-28 h-28">
+            <img src={img2} alt="flower" className="object-contain" />
+          </div>
         </div>
 
         {/* Question 1 */}
-        <h2 className="text-xl text-purple-700 font-semibold">
+        <h2
+          className="text-xl font-semibold"
+          style={{
+            backgroundImage: "linear-gradient(to right, #b976c5, #b390c9)",
+            WebkitBackgroundClip: "text",
+            color: "transparent",
+          }}
+        >
           When was your last menstrual cycle?{" "}
-          <span className="text-purple-400">(The first day)</span>
+          <span
+            style={{
+              backgroundImage: "linear-gradient(to right, #b976c5, #b390c9)",
+              WebkitBackgroundClip: "text",
+              color: "transparent",
+            }}
+          >
+            (The first day)
+          </span>
         </h2>
         <input
           type="text"
@@ -51,7 +70,14 @@ const Cycle = () => {
         <div className="mt-8" />
 
         {/* Question 2 */}
-        <h2 className="text-xl text-purple-700 font-semibold">
+        <h2
+          className="text-xl font-semibold"
+          style={{
+            backgroundImage: "linear-gradient(to right, #b976c5, #b390c9)",
+            WebkitBackgroundClip: "text",
+            color: "transparent",
+          }}
+        >
           How long does your period usually last?
         </h2>
 
@@ -81,8 +107,10 @@ const Cycle = () => {
           {[...Array(5)].map((_, index) => (
             <div
               key={index}
-              className={`h-2 w-2 rounded-full ${
-                index === 2 ? "bg-purple-500" : "bg-gray-300"
+              className={`h-1 w-6 rounded-full ${
+                index === 2
+                  ? "bg-gradient-to-r from-purple-500 to-purple-300"
+                  : "bg-gray-300"
               }`}
             />
           ))}
@@ -100,7 +128,10 @@ const Cycle = () => {
           </button>
           <button
             onClick={handleConfirm}
-            className="px-6 py-2 text-white bg-purple-500 rounded-full"
+            className="px-6 py-2 text-white rounded-full"
+            style={{
+              backgroundImage: "linear-gradient(to right, #b976c5, #b390c9)",
+            }}
           >
             Confirm
           </button>

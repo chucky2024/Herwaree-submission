@@ -1,25 +1,29 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from "react-router-dom";
 import img2 from "../assets/flower2.png";
 
 const Supplement: React.FC = () => {
-  const [supplementQuestionOption, setSupplementQuestionOption] = useState<string | null>(null);
-  const [fedQuestionOption, setFedQuestionOption] = useState<string | null>(null);
-  const navigate = useNavigate(); 
+  const [supplementQuestionOption, setSupplementQuestionOption] = useState<
+    string | null
+  >(null);
+  const [fedQuestionOption, setFedQuestionOption] = useState<string | null>(
+    null
+  );
+  const navigate = useNavigate();
 
   const supplementQuestionOptions = ["Yes", "No", "Not sure"];
   const fedQuestionOptions = ["Yes", "No", "Presently Pregnant/breastfeeding"];
 
   const handleConfirm = () => {
     if (supplementQuestionOption || fedQuestionOption) {
-      navigate("/herwaree/conditions"); 
+      navigate("/herwaree/conditions");
     }
   };
 
   const handleNotSure = () => {
-    navigate("/herwaree/conditions"); 
+    navigate("/herwaree/conditions");
   };
 
   return (
@@ -89,12 +93,14 @@ const Supplement: React.FC = () => {
       <div className="flex justify-between items-center mt-6">
         <button
           onClick={handleNotSure}
-          className="text-gray-500 bg-gray-200 px-6 py-3 rounded-full">
+          className="text-gray-500 bg-gray-200 px-6 py-3 rounded-full"
+        >
           Not Sure
         </button>
         <button
           onClick={handleConfirm}
-          className="bg-purple-500 text-white px-6 py-3 rounded-full">
+          className="bg-purple-500 text-white px-6 py-3 rounded-full"
+        >
           Confirm
         </button>
       </div>

@@ -1,38 +1,33 @@
 import React from "react";
-import { FaChevronLeft } from "react-icons/fa";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import img1 from "../assets/flower.png";
 import img2 from "../assets/flower2.png";
 
 const Contraceptives: React.FC = () => {
   return (
-    <div className="flex flex-col h-screen relative bg-white overflow-hidden pt-12 pb-6">
-      {/* Top Left Flower */}
-      <img
-        src={img1}
-        alt="Flower Top Left"
-        className="absolute -top-6 -left-8 w-24 h-24 transform scale-110 drop-shadow-lg"
-      />
-
-      {/* Top Right Flower */}
-      <img
-        src={img2}
-        alt="Flower Top Right"
-        className="absolute -top-6 -right-8 w-24 h-24 transform scale-110 drop-shadow-lg"
-      />
+    <div className="flex flex-col h-screen relative bg-white overflow-x-hidden pt-12 pb-6">
+      <div className="absolute -top-11 -right-10 w-28 h-28">
+        <img src={img2} alt="flower" className="object-contain" />
+      </div>
+      <div className="absolute -top-11 -left-10 w-28 h-28">
+        <img src={img1} alt="flower" className="object-contain" />
+      </div>
 
       {/* Back Button */}
-      <div className="absolute top-5 left-5">
-        <button className="text-purple-700 hover:text-purple-900">
-          <FaChevronLeft size={24} />
-        </button>
+      <div className="absolute top-24 left-4 mb-6">
+        <FontAwesomeIcon
+          icon={faChevronLeft}
+          className="text-2xl text-purple-400 cursor-pointer"
+        />
       </div>
 
       {/* Main content  */}
-      <div className="w-1/2 ml-6 mt-8">
+      <div className="w-1/2 ml-6 mt-14">
         {" "}
         {/* */}
         {/* On Contraceptives Section */}
-        <div className="mb-4">
+        <div className="mt-10">
           {" "}
           <h2 className="text-purple-500 text-lg font-semibold mb-3">
             {" "}
@@ -80,19 +75,17 @@ const Contraceptives: React.FC = () => {
         </div>
       </div>
 
-      {/* Centered Apply Button */}
       <div className="w-full flex justify-center px-4 mt-4">
         {" "}
-        {/* Added margin-top */}
-        <button className="bg-gray-200 text-gray-500 rounded-full py-2 w-1/2">
+        <button className="bg-gray-200 text-gray-500 rounded-full w-1/2 h-10  mt-12">
           Apply
         </button>
       </div>
 
-      {/* Bottom Right Circle Decoration */}
+      {/* Bottom Right Circle Decoration
       <div className="absolute bottom-0 right-0 mb-6 mr-6">
         <div className="w-16 h-16 bg-purple-300 rounded-full"></div>
-      </div>
+      </div> */}
     </div>
   );
 };

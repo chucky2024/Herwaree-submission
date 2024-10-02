@@ -9,11 +9,11 @@ import { Link } from "react-router-dom";
 
 const Navigation = () => {
   return (
-    <nav className="bg-white fixed bottom-0 w-full border-t border-gray-200 shadow-lg">
+    <nav className="bg-white fixed bottom-0 w-full border-t border-purple-200 shadow-lg">
       <ul className="flex justify-around py-1.5">
         <li className="group">
           <Link
-            to="/"
+            to="/herwaree/front"
             className="flex flex-col items-center text-gray-600 group-hover:text-purple-600"
           >
             <FaHome className="text-2xl" />
@@ -22,7 +22,7 @@ const Navigation = () => {
         </li>
         <li className="group">
           <Link
-            to="/history"
+            to="/herwaree/history"
             className="flex flex-col items-center text-gray-600 group-hover:text-purple-600"
           >
             <FaHistory className="text-2xl" />
@@ -31,7 +31,7 @@ const Navigation = () => {
         </li>
         <li className="group">
           <Link
-            to="/settings"
+            to="/herwaree/settingpage"
             className="flex flex-col items-center text-gray-600 group-hover:text-purple-600"
           >
             <FaCog className="text-2xl" />
@@ -40,7 +40,7 @@ const Navigation = () => {
         </li>
         <li className="group">
           <Link
-            to="/theme"
+            to="/herwaree/theme"
             className="flex flex-col items-center text-gray-600 group-hover:text-purple-600"
           >
             <FaPaintBrush className="text-2xl" />
@@ -49,7 +49,7 @@ const Navigation = () => {
         </li>
         <li className="group">
           <Link
-            to="/profile"
+            to="/herwaree/more"
             className="flex flex-col items-center text-gray-600 group-hover:text-purple-600"
           >
             <FaEllipsisH className="text-2xl" />

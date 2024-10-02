@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { FaChevronLeft } from "react-icons/fa";
 import img2 from "../assets/flower2.png";
 
 const SymptomTracker: React.FC = () => {
   const [selectedSymptoms, setSelectedSymptoms] = useState<string[]>([]);
   const [cycleChanges, setCycleChanges] = useState<string | null>(null);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const symptoms = [
     "Stress",
@@ -32,29 +31,48 @@ const SymptomTracker: React.FC = () => {
 
   const handleConfirm = () => {
     if (selectedSymptoms.length > 0 || cycleChanges) {
-      navigate("/herwaree/WeightHeight"); 
+      navigate("/herwaree/WeightHeight");
     }
   };
 
   const handleNotSure = () => {
-    navigate("/herwaree/WeightHeight"); 
+    navigate("/herwaree/WeightHeight");
   };
 
   return (
-    <div className="relative max-w-lg mx-auto bg-white p-4">
+    <div className="relative max-w-lg mx-auto bg-white p-4 overflow-x-hidden">
+      {/* Back Button */}
       <div className="absolute top-4 left-4">
-        <FontAwesomeIcon icon={faChevronLeft} className="text-purple-500" />
+        <div
+          className="p-2 rounded-full cursor-pointer"
+          style={{
+            background: "linear-gradient(to right, #b976c5, #b390c9)",
+          }}
+          onClick={() => navigate(-1)} // Navigate back
+        >
+          <FaChevronLeft className="text-2xl text-white cursor-pointer" />
+        </div>
       </div>
 
-      <img
-        src={img2}
-        alt="Flower"
-        className="fixed top-0 right-0 w-20 h-20 transform translate-x-1/2 -translate-y-1/2"
-      />
+      {/* Decorative Flower */}
+      <div className="absolute -top-8 -right-10 w-28 h-28">
+        <img src={img2} alt="flower" className="object-contain" />
+      </div>
 
-      <h2 className="text-lg font-semibold text-purple-600 text-center mt-12 mb-4">
+      {/* Lifestyle Factors Heading */}
+      <h2
+        className="text-lg font-semibold text-center mt-20 mb-6"
+        style={{
+          background: "linear-gradient(to right, #b976c5, #b390c9)",
+          WebkitBackgroundClip: "text",
+          backgroundClip: "text",
+          color: "transparent",
+        }}
+      >
         Any Lifestyle factors influencing your cycle?
       </h2>
+
+      {/* Symptoms Buttons */}
       <div className="flex flex-col space-y-4 mb-8">
         {symptoms.map((symptom) => (
           <button
@@ -62,18 +80,34 @@ const SymptomTracker: React.FC = () => {
             onClick={() => toggleSymptom(symptom)}
             className={`w-10/12 mx-auto py-2 px-6 rounded-full text-sm font-medium border ${
               selectedSymptoms.includes(symptom)
-                ? "bg-purple-100 border-purple-500 text-purple-600"
+                ? "text-white"
                 : "bg-gray-100 border-gray-300 text-gray-600"
             }`}
+            style={{
+              background: selectedSymptoms.includes(symptom)
+                ? "linear-gradient(to right, #b976c5, #b390c9)"
+                : undefined,
+            }}
           >
             {symptom}
           </button>
         ))}
       </div>
 
-      <h2 className="text-lg font-semibold text-purple-600 text-center mb-4">
-        Are you on any form of birthcontrol or medication?
+      {/* Birth Control Heading */}
+      <h2
+        className="text-lg font-semibold text-center mb-4"
+        style={{
+          background: "linear-gradient(to right, #b976c5, #b390c9)",
+          WebkitBackgroundClip: "text",
+          backgroundClip: "text",
+          color: "transparent",
+        }}
+      >
+        Are you on any form of birth control or medication?
       </h2>
+
+      {/* Cycle Options */}
       <div className="flex flex-col space-y-4">
         {cycleOptions.map((option) => (
           <button
@@ -81,26 +115,36 @@ const SymptomTracker: React.FC = () => {
             onClick={() => setCycleChanges(option)}
             className={`inline-flex items-center justify-start py-1 px-3 rounded-full text-sm font-medium border max-w-max ${
               cycleChanges === option
-                ? "bg-purple-100 border-purple-500 text-purple-600"
+                ? "text-white border-transparent"
                 : "bg-gray-100 border-gray-300 text-gray-600"
             }`}
+            style={{
+              background:
+                cycleChanges === option
+                  ? "linear-gradient(to right, #b976c5, #b390c9)"
+                  : undefined,
+            }}
           >
             <span className="text-left">{option}</span>
           </button>
         ))}
       </div>
 
+      {/* Pagination Dots */}
       <div className="flex justify-center space-x-2 my-6">
         {[...Array(6)].map((_, idx) => (
           <div
             key={idx}
-            className={`w-2 h-2 rounded-full ${
-              idx === 3 ? "bg-purple-500" : "bg-gray-300"
+            className={`w-8 h-1 rounded-full ${
+              idx === 3
+                ? "bg-gradient-to-r from-purple-500 to-pink-500"
+                : "bg-gray-300"
             }`}
           ></div>
         ))}
       </div>
 
+      {/* Footer Buttons */}
       <div className="flex justify-between items-center mt-6">
         <button
           onClick={handleNotSure}
@@ -110,7 +154,10 @@ const SymptomTracker: React.FC = () => {
         </button>
         <button
           onClick={handleConfirm}
-          className="bg-purple-500 text-white py-2 px-6 rounded-full text-sm font-medium hover:bg-purple-600"
+          className="py-2 px-6 rounded-full text-sm font-medium text-white"
+          style={{
+            background: "linear-gradient(to right, #b976c5, #b390c9)",
+          }}
         >
           Confirm
         </button>

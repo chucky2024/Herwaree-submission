@@ -14,12 +14,9 @@ const NoticedSymptoms: React.FC = () => {
     <div className="flex flex-col justify-between min-h-screen px-4 py-6 bg-white relative overflow-x-hidden">
       <header className="relative mb-6">
         <div className="flex items-center">
-    
-          <div className="flex items-center mb-4">
-            <button className="text-purple-500">
-              <FontAwesomeIcon icon={faChevronLeft} className="text-lg" />
-            </button>
-          </div>
+          <button className="text-purple-700">
+            <FontAwesomeIcon icon={faChevronLeft} className="text-xl" />
+          </button>
         </div>
 
         <div className="mt-4">
@@ -28,8 +25,8 @@ const NoticedSymptoms: React.FC = () => {
           </h1>
         </div>
 
-        <div className="absolute -top-6 -right-14">
-          <img src={img2} alt="flower" className="h-20" />
+        <div className="absolute -top-16 -right-16 w-28 h-28">
+          <img src={img2} alt="flower" className="object-contain" />
         </div>
       </header>
 

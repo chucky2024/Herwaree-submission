@@ -1,18 +1,31 @@
-import { useWallet } from '@solana/wallet-adapter-react';
-import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
-import { useNavigate } from 'react-router-dom';
+import { useWallet } from "@solana/wallet-adapter-react";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import ToastNotification from "../components/notif";
 
-const ConnectWalletButton = () => {
-    const { publicKey } = useWallet();
-    const navigate = useNavigate();
-    if(publicKey){
-      navigate('/herwaree/introduce')
+const ConnectWalletButton: React.FC = () => {
+  const { publicKey } = useWallet();
+  const navigate = useNavigate();
+  const [toast, setToast] = useState<{
+    type: "success" | "error";
+    message: string;
+  } | null>(null);
+
+  useEffect(() => {
+    if (publicKey) {
+      setToast({ type: "success", message: "Wallet connected successfully!" });
+
+      setTimeout(() => {
+        navigate("/herwaree/introduce");
+      }, 2000);
     }
-
+  }, [publicKey, navigate]);
 
   return (
     <div>
-      <WalletMultiButton/>
+      {toast && <ToastNotification toast={toast} />}
+      <WalletMultiButton />
     </div>
   );
 };

@@ -1,25 +1,35 @@
 import React, { useState } from "react";
 import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css"; 
+import "react-calendar/dist/Calendar.css";
 import { FaChevronLeft } from "react-icons/fa";
-import img2 from "../assets/flower2.png"; 
-import { useNavigate } from "react-router-dom"; 
+import img2 from "../assets/flower2.png";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 type Value = Date | Date[] | [Date, Date] | null;
 
 const BirthdayPicker: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [showCalendar, setShowCalendar] = useState<boolean>(false);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleConfirm = () => {
     if (selectedDate) {
-      navigate("/herwaree/achieve"); 
+      toast.success("Date confirmed successfully!", { position: "top-center" });
+      setTimeout(() => {
+        navigate("/herwaree/achieve");
+      }, 2000);
+    } else {
+      toast.error("Please select a date first.", { position: "top-center" });
     }
   };
 
   const handleSkip = () => {
-    navigate("/herwaree/achieve"); 
+    toast.info("You skipped the date selection.", { position: "top-center" });
+    setTimeout(() => {
+      navigate("/herwaree/achieve");
+    }, 2000);
   };
 
   const handleDateChange = (value: Value) => {
@@ -30,25 +40,49 @@ const BirthdayPicker: React.FC = () => {
     } else {
       setSelectedDate(null);
     }
-    setShowCalendar(false); 
+    setShowCalendar(false);
   };
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-white relative overflow-hidden">
-      <div className="absolute top-5 left-5">
-        <button className="text-purple-700 hover:text-purple-900">
-          <FaChevronLeft size={24} />
-        </button>
+      {/* Toast notification container */}
+      <ToastContainer />
+
+      {/* Chevron with gradient */}
+      <div className="absolute top-4 left-4">
+        <div
+          className="p-2 rounded-full"
+          style={{
+            background: "linear-gradient(to right, #b976c5, #b390c9)",
+          }}
+        >
+          <FaChevronLeft className="text-2xl text-white cursor-pointer" />
+        </div>
       </div>
 
-      <h1 className="text-2xl font-bold text-left text-purple-700 mb-6 mt-16">
+      {/* Title with gradient */}
+      <h1
+        className="text-2xl font-bold text-left mb-6 mt-16"
+        style={{
+          backgroundImage: "linear-gradient(to right, #b976c5, #b390c9)",
+          WebkitBackgroundClip: "text",
+          color: "transparent",
+        }}
+      >
         Enter your Birthdate
       </h1>
 
+      {/* Calendar button */}
       <div className="mb-8 relative w-64">
         <button
           onClick={() => setShowCalendar(!showCalendar)}
-          className="w-full py-3 px-6 border-2 border-purple-300 rounded-lg text-purple-700 font-semibold bg-white hover:bg-purple-100"
+          className="w-full py-3 px-6 border-2 border-purple-300 rounded-lg font-semibold bg-white hover:bg-purple-100"
+          style={{
+            backgroundImage: selectedDate
+              ? "linear-gradient(to right, #b976c5, #b390c9)"
+              : "",
+            color: selectedDate ? "white" : "inherit",
+          }}
         >
           {selectedDate ? selectedDate.toDateString() : "Select a date"}
         </button>
@@ -63,33 +97,41 @@ const BirthdayPicker: React.FC = () => {
         )}
       </div>
 
-      <div className="absolute bottom-32 mb-6 flex justify-center space-x-2">
-        <span className="block h-2 w-2 rounded-full bg-gray-300"></span>
-        <span className="block h-2 w-2 rounded-full bg-purple-700"></span>
-        <span className="block h-2 w-2 rounded-full bg-gray-300"></span>
+      {/* Progress bar */}
+      <div className="flex justify-center items-center space-x-4 mt-20 ">
+        <span className="h-1 w-6 bg-gray-300 rounded-full"></span>
+        <span
+          className="h-1 w-6 rounded-full"
+          style={{
+            background: "linear-gradient(to right, #b976c5, #b390c9)",
+          }}
+        ></span>
+        <span className="h-1 w-6 bg-gray-300 rounded-full"></span>
       </div>
 
+      {/* Skip and Confirm buttons */}
       <div className="absolute bottom-20 flex space-x-4">
         <button
-          className="text-gray-700 px-12 py-2 rounded-full border border-gray-300 hover:bg-gray-100 transition-all"
+          className="px-12 py-2 rounded-full border border-gray-300 hover:bg-gray-100 transition-all"
           onClick={handleSkip}
         >
           Skip
         </button>
         <button
-          className="bg-purple-700 text-white px-12 py-2 rounded-full hover:bg-purple-800 transition-all"
+          className="px-12 py-2 rounded-full text-white hover:bg-purple-800 transition-all"
+          style={{
+            background: "linear-gradient(to right, #b976c5, #b390c9)",
+          }}
           onClick={handleConfirm}
         >
           Confirm
         </button>
       </div>
 
-  
-      <img
-        src={img2}
-        alt="Flower Top Right"
-        className="absolute -inset-y-7 -right-12 w-28 h-28 transform scale-110 drop-shadow-lg"
-      />
+      {/* Flower image */}
+      <div className="absolute -top-8 -right-10 w-28 h-28">
+        <img src={img2} alt="flower" className="object-contain" />
+      </div>
 
       <div className="absolute bottom-5 left-4 w-20 h-20 bg-purple-300 rounded-full transform -translate-x-1/2 translate-y-1/2"></div>
 

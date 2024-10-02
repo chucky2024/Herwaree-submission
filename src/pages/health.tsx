@@ -1,5 +1,4 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { FaChevronLeft } from "react-icons/fa";
 import { useState } from "react";
 import img2 from "../assets/flower2.png";
 
@@ -17,14 +16,13 @@ const Health = () => {
   return (
     <div className="flex flex-col justify-between min-h-screen px-4 py-6 bg-white relative overflow-hidden">
       {/* Flower Image (Top Right) */}
-      <div className="absolute top-0 -right-10">
-        <img src={img2} alt="flower" className="h-20" />
+      <div className="absolute -top-8 -right-10 w-28 h-28">
+        <img src={img2} alt="flower" className="object-contain" />
       </div>
-
       {/* Back Button */}
-      <div className="flex items-center mb-4">
-        <button className="text-purple-500">
-          <FontAwesomeIcon icon={faChevronLeft} className="text-lg" />
+      <div className="absolute top-5 left-5">
+        <button className="text-purple-400 hover:text-purple-900">
+          <FaChevronLeft size={24} />
         </button>
       </div>
 
@@ -32,7 +30,7 @@ const Health = () => {
       <div className="space-y-8">
         {/* First Question */}
         <div>
-          <p className="text-lg text-purple-600 font-semibold mb-4">
+          <p className="text-lg text-purple-600 font-semibold mb-4 mt-16">
             Do you have any chronic health conditions(eg,
             diabetes,hypertension)?
           </p>
@@ -78,12 +76,12 @@ const Health = () => {
       </div>
 
       {/* Progress Indicator */}
-      <div className="flex justify-center items-center space-x-4 mt-8">
-        <span className="h-2 w-8 bg-gray-300 rounded-full"></span>
-        <span className="h-2 w-8 bg-gray-300 rounded-full"></span>
-        <span className="h-2 w-8 bg-purple-500 rounded-full"></span>
-        <span className="h-2 w-8 bg-gray-300 rounded-full"></span>
-        <span className="h-2 w-8 bg-gray-300 rounded-full"></span>
+      <div className="flex justify-center items-center space-x-4 mt-12">
+        <span className="h-1 w-6 bg-gray-300 rounded-full"></span>
+        <span className="h-1 w-6 bg-gray-300 rounded-full"></span>
+        <span className="h-1 w-6 bg-purple-500 rounded-full"></span>
+        <span className="h-1 w-6 bg-gray-300 rounded-full"></span>
+        <span className="h-1 w-6 bg-gray-300 rounded-full"></span>
       </div>
 
       {/* Footer */}

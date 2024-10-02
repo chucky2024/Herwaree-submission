@@ -1,27 +1,55 @@
-import React from 'react';
-import { FaChevronLeft } from 'react-icons/fa'; 
-import { AiOutlineEllipsis } from 'react-icons/ai'; 
-import { useNavigate } from 'react-router-dom'; 
+import React from "react";
+import { FaChevronLeft } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const WeightHeight: React.FC = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleContinue = () => {
-    navigate("/herwaree/calendar"); 
+    navigate("/herwaree/calendar");
   };
 
   return (
     <div className="min-h-screen flex flex-col justify-between bg-gray-100 p-8 relative">
-
-      <div className="absolute top-4 py-10 left-4">
-        <FaChevronLeft className="text-2xl text-gray-400 cursor-pointer" />
+      {/* Back Button */}
+      <div className="absolute top-4 left-4">
+        <div
+          className="p-2 rounded-full cursor-pointer"
+          style={{
+            background: "linear-gradient(to right, #b976c5, #b390c9)",
+          }}
+          onClick={() => navigate(-1)} // Navigate back
+        >
+          <FaChevronLeft className="text-2xl text-white cursor-pointer" />
+        </div>
       </div>
 
+      {/* Personal Details Heading */}
       <div className="flex flex-col items-center mt-20">
-        <h1 className="text-xl font-bold mb-6 text-purple-600 text-center">Personal details</h1>
-        
+        <h1
+          className="text-xl font-bold mb-6 text-center"
+          style={{
+            background: "linear-gradient(to right, #b976c5, #b390c9)",
+            WebkitBackgroundClip: "text",
+            backgroundClip: "text",
+            color: "transparent",
+          }}
+        >
+          Personal details
+        </h1>
+
+        {/* Weight Input */}
         <div className="mb-4 w-full max-w-md">
-          <label className="block text-purple-600 text-lg font-bold mb-2" htmlFor="weight">
+          <label
+            className="block text-lg font-bold mb-2"
+            htmlFor="weight"
+            style={{
+              background: "linear-gradient(to right, #b976c5, #b390c9)",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              color: "transparent",
+            }}
+          >
             Weight (kg)
           </label>
           <input
@@ -31,9 +59,19 @@ const WeightHeight: React.FC = () => {
             className="border rounded-lg px-3 py-2 w-full text-center"
           />
         </div>
-        
+
+        {/* Height Input */}
         <div className="mb-4 w-full max-w-md">
-          <label className="block text-purple-600 text-lg font-bold mb-2" htmlFor="height">
+          <label
+            className="block text-lg font-bold mb-2"
+            htmlFor="height"
+            style={{
+              background: "linear-gradient(to right, #b976c5, #b390c9)",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              color: "transparent",
+            }}
+          >
             Height (Inches)
           </label>
           <input
@@ -45,16 +83,30 @@ const WeightHeight: React.FC = () => {
         </div>
       </div>
 
-      {/* Navigation Dots and Buttons at the Bottom */}
-      <div className="flex flex-col items-center">
-        <AiOutlineEllipsis className="text-3xl text-gray-400 mb-4" /> 
-        <button 
-          className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 w-full max-w-md"
-          onClick={handleContinue} 
-        >
-          Continue
-        </button>
+      {/* Navigation Dots */}
+      <div className="flex justify-center items-center space-x-4 mt-20">
+        <span className="h-1 w-6 bg-gray-300 rounded-full"></span>
+        <span className="h-1 w-6 bg-gray-300 rounded-full"></span>
+        <span
+          className="h-1 w-6 rounded-full"
+          style={{
+            background: "linear-gradient(to right, #b976c5, #b390c9)",
+          }}
+        ></span>
+        <span className="h-1 w-6 bg-gray-300 rounded-full"></span>
+        <span className="h-1 w-6 bg-gray-300 rounded-full"></span>
       </div>
+
+      {/* Continue Button */}
+      <button
+        className="text-white px-4 py-2 rounded-lg w-full max-w-md"
+        onClick={handleContinue}
+        style={{
+          background: "linear-gradient(to right, #b976c5, #b390c9)",
+        }}
+      >
+        Continue
+      </button>
     </div>
   );
 };

@@ -1,59 +1,112 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCircle, faCamera } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUserCircle,
+  faCamera,
+  faChevronLeft,
+} from "@fortawesome/free-solid-svg-icons";
 import Navigation from "../components/navigation";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import img2 from "../assets/flower.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useUser } from "../pages/UserContext";
 
-const Profile = () => {
-  const [firstName, setFirstName] = useState("John");
-  const [lastName, setLastName] = useState("Doe");
-  const [email, setEmail] = useState("");
-  const [yearOfBirth, setYearOfBirth] = useState("2002");
-  const [cycleLength, setCycleLength] = useState("28 Days");
-  const [breastExamDate, setBreastExamDate] = useState("5 Days");
-  const [showYearPicker, setShowYearPicker] = useState(false);
-  const [emailError, setEmailError] = useState("");
+// Ensure the User interface is imported
+// import { User } from '../types'; // Adjust import as necessary
+
+const Profile: React.FC = () => {
+  const { user, setUser } = useUser(); // Get user and setUser from context
+  const navigate = useNavigate();
+  const [email, setEmail] = useState<string>(user?.email || "");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [showYearPicker, setShowYearPicker] = useState<boolean>(false);
+  const [emailError, setEmailError] = useState<string>("");
+  const [profilePic, setProfilePic] = useState<string | null>(null);
 
   const handleProfilePicUpload = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = event.target.files?.[0];
     if (file) {
-      console.log("Uploaded file:", file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProfilePic(reader.result as string);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
   const handleEmailChange = (value: string) => {
     setEmail(value);
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(value)) {
-      setEmailError("Invalid email address");
-    } else {
-      setEmailError("");
+    setEmailError(emailPattern.test(value) ? "" : "Invalid email address");
+  };
+
+  const handleLogout = async () => {
+    setLoading(true);
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      navigate("/herwaree/signup");
+    } catch (error) {
+      console.error("Logout failed", error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleYearSelect = (date: Date) => {
-    const selectedYear = date.getFullYear();
-    setYearOfBirth(selectedYear.toString());
-    setShowYearPicker(false);
+  const handleDeleteAccount = async () => {
+    if (
+      window.confirm(
+        "Are you sure you want to delete your account? This action cannot be undone."
+      )
+    ) {
+      setLoading(true);
+      try {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        navigate("/");
+      } catch (error) {
+        console.error("Delete account failed", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+
+  // Define type for user updates
+  const updateUserContext = (updatedUser: Partial<User>) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    setUser((prevUser: any) => {
+      if (prevUser) {
+        return {
+          ...prevUser,
+          ...updatedUser,
+        };
+      }
+      return prevUser; // Handle case where prevUser is null
+    });
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center py-6 px-4">
-      <div className="w-full flex justify-between items-center mb-6">
-      <Link to= "/herwaree/settings" className="text-purple-500">←</Link>
-        <h1 className="text-xl font-bold text-purple-500">My Profile</h1>;
+    <div className="min-h-screen bg-white flex flex-col items-center py-6 px-4 relative overflow-x-hidden -mb-14">
+      <div className="w-full flex justify-center items-center mb-6">
+        <Link to="/herwaree/settingspage" className="text-purple-500"></Link>
+        <h1 className="text-xl font-bold text-purple-500">My Profile</h1>
       </div>
       <div className="relative mb-6">
-        <FontAwesomeIcon
-          icon={faUserCircle}
-          className="text-purple-500"
-          size="6x"
-        />
+        {profilePic ? (
+          <img
+            src={profilePic}
+            alt="Profile"
+            className="rounded-full w-24 h-24 object-cover border-2 border-purple-500"
+          />
+        ) : (
+          <FontAwesomeIcon
+            icon={faUserCircle}
+            className="text-purple-500 w-24 h-24"
+            size="6x"
+          />
+        )}
         <label
           htmlFor="profile-pic-upload"
           className="absolute bottom-0 right-0 bg-white p-1 rounded-full"
@@ -68,87 +121,115 @@ const Profile = () => {
           />
         </label>
       </div>
-    
+
       <div className="w-full space-y-4">
         <EditableField
           label="First Name"
-          value={firstName}
-          onChange={(val) => setFirstName(val)}
-        />
-        <EditableField
-          label="Last Name"
-          value={lastName}
-          onChange={(val) => setLastName(val)}
+          value={user?.name || ""}
+          onChange={(value) => updateUserContext({ name: value })} // Update name in user context
         />
         <EditableField
           label="Email"
           value={email}
-          onChange={(val) => handleEmailChange(val)}
-          isEmail
+          onChange={(value) => {
+            handleEmailChange(value);
+            if (!emailError) {
+              updateUserContext({ email: value }); // Update email in user context
+            }
+          }}
         />
         {emailError && (
           <span className="text-red-500 text-sm">{emailError}</span>
         )}
         <EditableField
           label="Year of Birth"
-          value={yearOfBirth}
+          value={user?.yearOfBirth.toString() || ""}
           onChange={() => setShowYearPicker(true)}
           isYear
         />
         {showYearPicker && (
           <Calendar
-            onClickYear={handleYearSelect}
+            onChange={(value: unknown) => {
+              if (value instanceof Date) {
+                const selectedYear = value.getFullYear();
+                updateUserContext({ yearOfBirth: selectedYear }); // Update year of birth in user context
+              }
+              setShowYearPicker(false);
+            }}
             view="decade"
             maxDetail="decade"
-            onChange={handleYearSelect}
-            value={new Date(yearOfBirth)}
+            value={new Date(user?.yearOfBirth || new Date())}
             className="year-picker"
           />
         )}
         <EditableField
           label="Cycle Length"
-          value={cycleLength}
-          onChange={(val) => setCycleLength(val)}
+          value={user?.cycleLength.toString() || ""}
+          onChange={(value) =>
+            updateUserContext({ cycleLength: Number(value) })
+          } // Update cycle length in user context
         />
         <EditableField
           label="Breast Examination Date"
-          value={breastExamDate}
-          onChange={(val) => setBreastExamDate(val)}
+          value={user?.breastExamDate || ""}
+          onChange={(value) => updateUserContext({ breastExamDate: value })} // Update breast exam date in user context
         />
       </div>
-    
+
       <div className="mt-8 w-full space-y-4">
-        <button className="w-full py-3 bg-gray-200 text-gray-500 rounded-md">
-          Log Out
+        <button
+          onClick={handleLogout}
+          className={`w-full py-3 bg-gray-200 text-gray-500 rounded-md ${
+            loading ? "opacity-50 cursor-not-allowed" : ""
+          }`}
+          disabled={loading}
+        >
+          {loading ? "Logging Out..." : "Log Out"}
         </button>
-        <button className="w-full py-3 text-red-500 rounded-md">
-          Delete Account
+        <button
+          onClick={handleDeleteAccount}
+          className={`w-full py-3 text-red-500 rounded-md ${
+            loading ? "opacity-50 cursor-not-allowed" : ""
+          }`}
+          disabled={loading}
+        >
+          {loading ? "Deleting..." : "Delete Account"}
         </button>
       </div>
-      
-      <img
-        src={img2}
-        alt="Flower Top Right"
-        className="fixed top-0 -right-12 w-24 h-24 transform scale-110 drop-shadow-lg"
-      />
-      {/* </div> */};{/* Navigation */}
-      <Navigation />
+
+      <div className="absolute top-6 left-4">
+        <FontAwesomeIcon
+          icon={faChevronLeft}
+          className="text-2xl text-purple-400 cursor-pointer"
+          onClick={() => navigate(-1)}
+        />
+      </div>
+
+      <div className="absolute -top-10 -right-16 w-28 h-28">
+        <img src={img2} alt="flower" className="object-contain" />
+      </div>
+
+      <div className="fixed bottom-0 left-0 right-0">
+        <Navigation />
+      </div>
     </div>
   );
 };
 
-const EditableField = ({
-  label,
-  value,
-  onChange,
-  isEmail = false,
-  isYear = false,
-}: {
+interface EditableFieldProps {
   label: string;
   value: string;
   onChange: (val: string) => void;
   isEmail?: boolean;
   isYear?: boolean;
+}
+
+const EditableField: React.FC<EditableFieldProps> = ({
+  label,
+  value,
+  onChange,
+  isEmail = false,
+  isYear = false,
 }) => {
   return (
     <div className="flex justify-between items-center border-b border-gray-300 py-3">
@@ -165,9 +246,7 @@ const EditableField = ({
           type={isEmail ? "email" : "text"}
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className={`text-gray-500 ${
-            isEmail ? "text-purple-500 underline" : ""
-          } outline-none bg-transparent`}
+          className="flex-grow ml-2 text-gray-700 border-b border-gray-400 outline-none"
         />
       )}
     </div>

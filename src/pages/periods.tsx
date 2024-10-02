@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaChevronLeft } from "react-icons/fa";
-import img2 from "../assets/flower2.png"; 
+import img2 from "../assets/flower2.png";
 
 const PeriodUpsAndDowns: React.FC = () => {
   const [selectedRange, setSelectedRange] = useState<number | null>(4);
@@ -27,11 +27,9 @@ const PeriodUpsAndDowns: React.FC = () => {
         </button>
       </div>
 
-      <img
-        src={img2}
-        alt="Flower Top Right"
-        className="absolute -inset-y-7 -right-12 w-28 h-28 transform scale-110 drop-shadow-lg"
-      />
+      <div className="absolute -top-10 -right-10 w-28 h-28">
+        <img src={img2} alt="flower" className="object-contain" />
+      </div>
 
       <div className="w-full px-6 pb-12 space-y-10">
         <h1 className="text-lg font-bold text-left text-purple-700 w-full max-w-md">
@@ -100,10 +98,10 @@ const PeriodUpsAndDowns: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex justify-center space-x-2">
-          <span className="block h-2 w-2 rounded-full bg-gray-300"></span>
-          <span className="block h-2 w-2 rounded-full bg-purple-700"></span>
-          <span className="block h-2 w-2 rounded-full bg-gray-300"></span>
+        <div className="flex justify-center space-x-2 ">
+          <span className="block h-1 w-6 rounded-full bg-gray-300"></span>
+          <span className="block h-1 w-6 rounded-full bg-purple-700"></span>
+          <span className="block h-1 w-6 rounded-full bg-gray-300"></span>
         </div>
 
         <div className="flex space-x-4 w-full max-w-xs">

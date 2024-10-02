@@ -1,37 +1,39 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import img2 from "../assets/flower2.png";
 
 const Lump: React.FC = () => {
-  const [firstQuestionOption, setFirstQuestionOption] = useState<string | null>(null);
-  const [secondQuestionOption, setSecondQuestionOption] = useState<string | null>(null);
-  const navigate = useNavigate(); 
+  const [firstQuestionOption, setFirstQuestionOption] = useState<string | null>(
+    null
+  );
+  const [secondQuestionOption, setSecondQuestionOption] = useState<
+    string | null
+  >(null);
+  const navigate = useNavigate();
 
   const firstQuestionOptions = ["Yes", "No", "Not sure"];
   const secondQuestionOptions = ["Yes", "No", "I'd like to learn more"];
 
   const handleConfirm = () => {
     if (firstQuestionOption || secondQuestionOption) {
-      navigate("/herwaree/alcohol"); 
+      navigate("/herwaree/alcohol");
     }
   };
 
-
   const handleNotSure = () => {
-    navigate("/herwaree/alcohol"); 
+    navigate("/herwaree/alcohol");
   };
 
   return (
     <div className="flex flex-col justify-between min-h-screen px-4 py-6 bg-white relative overflow-hidden">
-      <div className="absolute top-0 -right-10">
-        <img src={img2} alt="flower" className="h-20" />
+      <div className="absolute -top-11 -right-10 w-28 h-28">
+        <img src={img2} alt="flower" className="object-contain" />
       </div>
 
-
       <div className="flex items-center mb-4">
-        <button className="text-purple-500">
+        <button className="text-purple-600">
           <FontAwesomeIcon icon={faChevronLeft} className="text-lg" />
         </button>
       </div>
@@ -84,24 +86,26 @@ const Lump: React.FC = () => {
       </div>
 
       {/* Progress Indicator */}
-      <div className="flex justify-center items-center space-x-4 mt-8">
-        <span className="h-2 w-8 bg-gray-300 rounded-full"></span>
-        <span className="h-2 w-8 bg-gray-300 rounded-full"></span>
-        <span className="h-2 w-8 bg-purple-500 rounded-full"></span>
-        <span className="h-2 w-8 bg-gray-300 rounded-full"></span>
-        <span className="h-2 w-8 bg-gray-300 rounded-full"></span>
+      <div className="flex justify-center items-center space-x-4 mt-20">
+        <span className="h-1 w-6 bg-gray-300 rounded-full"></span>
+        <span className="h-1 w-6 bg-gray-300 rounded-full"></span>
+        <span className="h-1 w-6 bg-purple-500 rounded-full"></span>
+        <span className="h-1 w-6 bg-gray-300 rounded-full"></span>
+        <span className="h-1 w-6 bg-gray-300 rounded-full"></span>
       </div>
 
       {/* Footer */}
       <div className="flex justify-between items-center mt-6">
-        <button 
-          onClick={handleNotSure} 
-          className="text-gray-500 bg-gray-200 px-6 py-3 rounded-full">
+        <button
+          onClick={handleNotSure}
+          className="text-gray-500 bg-gray-200 px-6 py-3 rounded-full"
+        >
           Not Sure
         </button>
-        <button 
-          onClick={handleConfirm} 
-          className="bg-purple-500 text-white px-6 py-3 rounded-full">
+        <button
+          onClick={handleConfirm}
+          className="bg-purple-500 text-white px-6 py-3 rounded-full"
+        >
           Confirm
         </button>
       </div>
