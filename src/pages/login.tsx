@@ -188,7 +188,7 @@ const Login: React.FC = () => {
         <p className="text-center text-gray-500 mt-6">
           Don't have an account?{" "}
           <Link
-            to="/herwaree/signup" // Use Link for navigation
+            to="/herwaree/signup"
             className="hover:underline"
             style={{
               backgroundImage: "linear-gradient(to right, #b976c5, #b390c9)",

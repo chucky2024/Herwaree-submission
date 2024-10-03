@@ -1,4 +1,5 @@
-import React, { useContext, useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUserCircle,
@@ -10,18 +11,16 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import img2 from "../assets/flower.png";
 import { Link, useNavigate } from "react-router-dom";
-import { useUser } from "../pages/UserContext";
-
-// Ensure the User interface is imported
-// import { User } from '../types'; // Adjust import as necessary
+import { useUser } from "../pages/UserContext"; // Importing the context
 
 const Profile: React.FC = () => {
-  const { user, setUser } = useUser(); // Get user and setUser from context
+  const { user, setUser } = useUser(); // Accessing user and setUser from context
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>(user?.email || "");
   const [loading, setLoading] = useState<boolean>(false);
   const [showYearPicker, setShowYearPicker] = useState<boolean>(false);
   const [emailError, setEmailError] = useState<string>("");
+
   const [profilePic, setProfilePic] = useState<string | null>(null);
 
   const handleProfilePicUpload = (
@@ -41,6 +40,9 @@ const Profile: React.FC = () => {
     setEmail(value);
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     setEmailError(emailPattern.test(value) ? "" : "Invalid email address");
+    if (!emailError) {
+      setUser({ email: value });
+    }
   };
 
   const handleLogout = async () => {
@@ -73,26 +75,13 @@ const Profile: React.FC = () => {
     }
   };
 
-  // Define type for user updates
-  const updateUserContext = (updatedUser: Partial<User>) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    setUser((prevUser: any) => {
-      if (prevUser) {
-        return {
-          ...prevUser,
-          ...updatedUser,
-        };
-      }
-      return prevUser; // Handle case where prevUser is null
-    });
-  };
-
   return (
     <div className="min-h-screen bg-white flex flex-col items-center py-6 px-4 relative overflow-x-hidden -mb-14">
       <div className="w-full flex justify-center items-center mb-6">
         <Link to="/herwaree/settingspage" className="text-purple-500"></Link>
         <h1 className="text-xl font-bold text-purple-500">My Profile</h1>
       </div>
+
       <div className="relative mb-6">
         {profilePic ? (
           <img
@@ -126,17 +115,12 @@ const Profile: React.FC = () => {
         <EditableField
           label="First Name"
           value={user?.name || ""}
-          onChange={(value) => updateUserContext({ name: value })} // Update name in user context
+          onChange={(value) => setUser({ name: value })} // Update name in user context
         />
         <EditableField
           label="Email"
           value={email}
-          onChange={(value) => {
-            handleEmailChange(value);
-            if (!emailError) {
-              updateUserContext({ email: value }); // Update email in user context
-            }
-          }}
+          onChange={(value) => handleEmailChange(value)} // Handle email validation and update
         />
         {emailError && (
           <span className="text-red-500 text-sm">{emailError}</span>
@@ -152,7 +136,7 @@ const Profile: React.FC = () => {
             onChange={(value: unknown) => {
               if (value instanceof Date) {
                 const selectedYear = value.getFullYear();
-                updateUserContext({ yearOfBirth: selectedYear }); // Update year of birth in user context
+                setUser({ yearOfBirth: selectedYear }); // Update year of birth in user context
               }
               setShowYearPicker(false);
             }}
@@ -165,14 +149,14 @@ const Profile: React.FC = () => {
         <EditableField
           label="Cycle Length"
           value={user?.cycleLength.toString() || ""}
-          onChange={(value) =>
-            updateUserContext({ cycleLength: Number(value) })
-          } // Update cycle length in user context
+          onChange={
+            (value) => setUser({ cycleLength: Number(value) }) // Update cycle length in user context
+          }
         />
         <EditableField
           label="Breast Examination Date"
           value={user?.breastExamDate || ""}
-          onChange={(value) => updateUserContext({ breastExamDate: value })} // Update breast exam date in user context
+          onChange={(value) => setUser({ breastExamDate: value })} // Update breast exam date in user context
         />
       </div>
 
@@ -246,7 +230,7 @@ const EditableField: React.FC<EditableFieldProps> = ({
           type={isEmail ? "email" : "text"}
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="flex-grow ml-2 text-gray-700 border-b border-gray-400 outline-none"
+          className="flex-grow ml-2 text-gray-700 outline-none"
         />
       )}
     </div>

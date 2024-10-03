@@ -50,27 +50,24 @@ const SignUp: React.FC = () => {
       );
       console.log("User ID:", userCredential.user.uid);
 
-      // Call the backend API
-      const response = await fetch("http://localhost:5000/herwaree/SignUp", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId: userCredential.user.uid,
-          email,
-          password,
-        }),
-      });
+      // const response = await fetch("http://localhost:5000/herwaree/SignUp", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     userId: userCredential.user.uid,
+      //     email,
+      //     password,
+      //   }),
+      // });
 
-      // Check for non-200 responses
-      if (!response.ok) {
-        // Handle empty or malformed JSON responses
-        const errorData = await response.json().catch(() => null);
-        const errorMessage = errorData?.message || "Sign up failed.";
-        showToast("error", errorMessage);
-        return;
-      }
+      // if (!response.ok) {
+      //   const errorData = await response.json().catch(() => null);
+      //   const errorMessage = errorData?.message || "Sign up failed.";
+      //   showToast("error", errorMessage);
+      //   return;
+      // }
 
       showToast("success", "Sign up successful!");
       setTimeout(() => {
@@ -227,24 +224,13 @@ const SignUp: React.FC = () => {
             backgroundImage: "linear-gradient(to right, #b976c5, #b390c9)",
           }}
         >
-          Signup with wallet
+          Connect Wallet
         </button>
+
+        {showWalletWidget && (
+          <ConnectWalletButton onWalletConnect={handleWalletSignUp} />
+        )}
       </div>
-
-      {showWalletWidget && (
-        <div className="flex justify-center mt-8">
-          <div className="p-4 bg-purple-100 rounded-lg">
-            <ConnectWalletButton onWalletConnect={handleWalletSignUp} />
-          </div>
-        </div>
-      )}
-
-      <p className="text-center mt-6">
-        Already have an account?{" "}
-        <a href="/herwaree/login" className="text-blue-600">
-          Login here
-        </a>
-      </p>
     </div>
   );
 };
