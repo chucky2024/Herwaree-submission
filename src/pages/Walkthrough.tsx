@@ -187,9 +187,8 @@ const Walkthrough: React.FC = () => {
   const canProceed =
     slides[currentSlide].type === "question" ? !!selectedOption : true;
 
-  // Slide background color change logic
   const getBackgroundColor = () => {
-    const slideColorIndex = Math.floor(currentSlide / 3) % 3; // Cycle through 3 colors
+    const slideColorIndex = Math.floor(currentSlide / 3) % 3;
     switch (slideColorIndex) {
       case 0:
         return "from-pink-100 to-purple-100";

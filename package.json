@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@dynamic-labs/sdk-react": "^0.16.24",
+    "@dynamic-labs/sdk-react": "^0.15.27",
     "@dynamic-labs/sdk-react-core": "^3.1.1",
     "@dynamic-labs/solana": "^2.6.3",
     "@fortawesome/fontawesome-svg-core": "^6.6.0",

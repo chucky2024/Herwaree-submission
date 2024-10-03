@@ -51,6 +51,7 @@ import Video from "./pages/video";
 import SettingsPage from "./pages/settingpage";
 import ChatScreen from "./pages/chatbot";
 import Doctors from "./pages/doctors-guide";
+import Donations from "./pages/donation";
 
 // App Component
 function App() {
@@ -114,6 +115,7 @@ function App() {
         <Route path="/herwaree/settingpage" element={<SettingsPage />} />
         <Route path="/herwaree/chatbot" element={<ChatScreen />} />
         <Route path="/herwaree/doctors-guide" element={<Doctors />} />
+        <Route path="/herwaree/donation" element={<Donations />} />
       </>
     )
   );

@@ -17,7 +17,7 @@ const Introduce: React.FC = () => {
   };
 
   const handleSkip = () => {
-    navigate("/herwaree/default"); // Replace with the actual default route
+    navigate("/herwaree/default");
   };
 
   return (
