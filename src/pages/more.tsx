@@ -19,7 +19,7 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import Navigation from "../components/navigation";
 
 const MorePage: React.FC = () => {
-  const navigate = useNavigate(); // React Router hook for navigation
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-white text-gray-800 pb-16 relative overflow-x-hidden">
@@ -77,7 +77,7 @@ const MorePage: React.FC = () => {
             {
               label: "Self-examination",
               img: selfExamImage,
-              path: "/self-examination",
+              path: "/herwaree/self-examination",
             },
           ]}
         />
@@ -89,23 +89,24 @@ const MorePage: React.FC = () => {
             {
               label: "Learn about Tampons",
               img: tamponImage,
-              path: "/tampons",
+              path: "/herwaree/tampons",
             },
             {
               label: "Fertility Tracking",
               img: fertilityImage,
-              path: "/fertility-tracking",
+              path: "/herwaree/fertility-tracking",
             },
           ]}
         />
 
         {/* Learn with Herware */}
+
         <Section
           title="Learn with Herware"
           items={[
-            { label: "Video", img: videoImage, path: "/video" },
-            { label: "Blogs", img: blogImage, path: "/blogs" },
-            { label: "Books", img: bookImage, path: "/books" },
+            { label: "Video", img: videoImage, path: "/herwaree/video" },
+            { label: "Blogs", img: blogImage, path: "/herwaree/blog" },
+            { label: "Books", img: bookImage, path: "/herwaree/books" },
           ]}
         />
 
@@ -113,8 +114,8 @@ const MorePage: React.FC = () => {
         <Section
           title="Educational Resources"
           items={[
-            { label: "FAQs", img: faqImage, path: "/faqs" },
-            { label: "Stories", img: storyImage, path: "/stories" },
+            { label: "FAQs", img: faqImage, path: "/herwaree/faqs" },
+            { label: "Stories", img: storyImage, path: "/herwaree/stories" },
           ]}
         />
       </div>

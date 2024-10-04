@@ -89,8 +89,8 @@ const SettingsPage: React.FC = () => {
         <SettingsOption label="Streaks" to="/streaks" icon={faTasks} />
         <SettingsOption label="Rewards" to="/rewards" icon={faGift} />
         <SettingsOption
-          label="Unlock Premium"
-          to="/unlock-premium"
+          label="Donation"
+          to="/herwaree/donation"
           icon={faUnlockAlt}
         />
         <SettingsOption

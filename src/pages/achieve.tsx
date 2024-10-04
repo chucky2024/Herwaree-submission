@@ -47,7 +47,7 @@ const AchieveWithUs: React.FC = () => {
         navigate("/herwaree/BreastFront");
         break;
       default:
-        navigate("/herwaree/goals");
+        navigate("/herwaree/more");
         break;
     }
   };
