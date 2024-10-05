@@ -53,6 +53,7 @@ import ChatScreen from "./pages/chatbot";
 import Doctors from "./pages/doctors-guide";
 import Donations from "./pages/donation";
 import DonationPage from "./pages/donationpg";
+import DonationConfirmation from "./pages/donation-confirmation";
 
 // App Component
 function App() {
@@ -118,6 +119,7 @@ function App() {
         <Route path="/herwaree/doctors-guide" element={<Doctors />} />
         <Route path="/herwaree/donation" element={<Donations />} />
         <Route path="/herwaree/donationpg" element={<DonationPage />} />
+        <Route path="/herwaree/donation-confirmation" element={<DonationConfirmation />} />
       </>
     )
   );
