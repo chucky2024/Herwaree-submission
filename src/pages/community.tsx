@@ -1,124 +1,340 @@
-// import React from "react";
+import { useState } from "react";
 import {
-  FaHome,
-  FaHistory,
-  FaCog,
-  FaPalette,
-  FaEllipsisH,
+  FaSearch,
+  FaBookmark,
+  FaComment,
+  FaHeart,
+  FaPaperPlane,
 } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import img2 from "../assets/flower2.png";
+import profileImg from "../assets/DoctorsCard.png";
+import userAvatar from "../assets/bullet.png"; // Importing a user avatar image
+import Navigation from "../components/navigation";
 
-const CommunityForum = () => {
+interface Post {
+  id: number;
+  author: string;
+  date: string;
+  title: string;
+  content: string;
+  fullContent: string;
+  likes: number;
+  liked: boolean;
+  comments: number;
+  bookmarks: number;
+  userComments: string[];
+}
+
+const CommunityPage = () => {
+  const [selectedPostId, setSelectedPostId] = useState<number | null>(null);
+  const [hoveredTab, setHoveredTab] = useState<string | null>(null);
+  const [newComment, setNewComment] = useState<string>("");
+  const [posts, setPosts] = useState<Post[]>([
+    {
+      id: 1,
+      author: "Admin Coral",
+      date: "09-12-2024 12:04AM",
+      title: "Tips for light period flow",
+      content: "Consult your healthcare Provider: Before embarking on any...",
+      fullContent: `Consult your healthcare Provider: Before embarking on any medical journey, especially
+        concerning reproductive health, it is crucial to ensure that...`,
+      likes: 10,
+      liked: false,
+      comments: 8,
+      bookmarks: 54,
+      userComments: [],
+    },
+    {
+      id: 2,
+      author: "Admin Coral",
+      date: "09-12-2024 12:04AM",
+      title: "Tips for light period flow",
+      content: "Consult your healthcare Provider: Before embarking on any...",
+      fullContent: `Some more extended content for the second post...`,
+      likes: 5,
+      liked: false,
+      comments: 3,
+      bookmarks: 20,
+      userComments: [],
+    },
+    {
+      id: 3,
+      author: "Admin Coral",
+      date: "09-12-2024 12:04AM",
+      title: "Tips for light period flow",
+      content: "Consult your healthcare Provider: Before embarking on any...",
+      fullContent: `Another long content here, giving more details about the tips...`,
+      likes: 12,
+      liked: false,
+      comments: 4,
+      bookmarks: 40,
+      userComments: [],
+    },
+  ]);
+
+  const handleLike = (id: number) => {
+    setPosts((prevPosts) =>
+      prevPosts.map((post) =>
+        post.id === id
+          ? {
+              ...post,
+              likes: post.liked ? post.likes - 1 : post.likes + 1,
+              liked: !post.liked,
+            }
+          : post
+      )
+    );
+  };
+
+  const handleBookmark = (id: number) => {
+    setPosts((prevPosts) =>
+      prevPosts.map((post) =>
+        post.id === id
+          ? {
+              ...post,
+              bookmarks: post.bookmarks
+                ? post.bookmarks - 1
+                : post.bookmarks + 1,
+            }
+          : post
+      )
+    );
+  };
+
+  const handlePostClick = (postId: number) => {
+    setSelectedPostId(postId);
+  };
+
+  const goBackToCommunity = () => {
+    setSelectedPostId(null);
+  };
+
+  const handleAddComment = (id: number) => {
+    if (newComment.trim() !== "") {
+      setPosts((prevPosts) =>
+        prevPosts.map((post) =>
+          post.id === id
+            ? {
+                ...post,
+                userComments: [...post.userComments, newComment], // Add new comment
+                comments: post.comments + 1, // Increment comment count
+              }
+            : post
+        )
+      );
+      setNewComment(""); // Clear comment input after submission
+    }
+  };
+
+  // Find the selected post
+  const selectedPost = posts.find((post) => post.id === selectedPostId);
+
   return (
-    <div className="min-h-screen bg-gradient-to-r from-purple-100 via-pink-50 to-blue-100">
-      {/* Header */}
-      <header className="flex justify-between items-center p-4 bg-purple-600 text-white shadow-md">
-        <button className="text-3xl hover:text-pink-300 transition">
-          &#9776;
-        </button>
-        <h1 className="text-2xl font-semibold">Community</h1>
-        <button className="text-3xl hover:text-pink-300 transition">🔔</button>
-      </header>
-
-      {/* Search Bar */}
-      <div className="p-4">
-        <input
-          type="text"
-          placeholder="Search..."
-          className="w-full p-3 rounded-lg shadow-sm border-2 border-gray-300 focus:outline-none focus:border-purple-400 transition"
-        />
+    <div className="p-4 bg-[#f8f2ff] min-h-screen relative pb-20 overflow-x-hidden">
+      {/* Added padding-bottom for navigation */}
+      {/* Top Flower Decoration */}
+      <div className="absolute -top-8 -right-10 w-28 h-28">
+        <img src={img2} alt="flower" className="object-contain" />
       </div>
+      {!selectedPostId ? (
+        // Community Feed View
+        <div>
+          {/* Header */}
+          <div className="text-center mb-4">
+            <h1
+              className="text-2xl font-semibold"
+              style={{
+                color: "rgba(179, 95, 189, 1)",
+              }}
+            >
+              Community
+            </h1>
+          </div>
 
-      {/* Tabs */}
-      <div className="flex justify-around text-purple-700 mb-4">
-        {["New", "All Posts", "Most Popular", "Doctors", "Diet"].map((tab) => (
-          <button
-            key={tab}
-            className="px-4 py-2 bg-white rounded-full shadow-sm hover:bg-purple-100 hover:shadow-lg transition"
-          >
-            {tab}
-          </button>
-        ))}
-      </div>
+          {/* Search Bar */}
+          <div className="flex items-center space-x-2 bg-white p-2 rounded-full mb-4 shadow">
+            <FaSearch className="text-gray-500" />
+            <input
+              type="text"
+              placeholder="Search..."
+              className="w-full text-gray-700 focus:outline-none"
+            />
+          </div>
 
-      {/* Post List */}
-      <div className="p-4 space-y-6">
-        {[1, 2, 3].map((post, index) => (
-          <div
-            key={index}
-            className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition"
-          >
-            <div className="flex items-start space-x-4">
-              <img
-                src="/path-to-image.jpg"
-                alt="User Avatar"
-                className="w-14 h-14 rounded-full border-2 border-purple-400"
-              />
-              <div className="flex-1">
-                <h3 className="text-lg font-semibold text-purple-700">
-                  Admin Coral
-                </h3>
-                <p className="text-gray-500 text-sm">09-12-2024 12:04AM</p>
-                <h4 className="mt-2 font-bold text-lg text-gray-800">
-                  Tips for light period flow
-                </h4>
-                <p className="text-gray-600 mt-1">
-                  Consult your healthcare provider: Before embarking on any...
-                </p>
-                <div className="flex space-x-6 mt-4 text-gray-500">
-                  <span>📑 54</span>
-                  <span>💬 8</span>
-                  <span>❤ 10</span>
+          {/* Tabs */}
+          <div className="flex justify-between mb-4 text-sm">
+            {["new", "all", "popular", "doctors", "diet"].map((tab) => (
+              <span
+                key={tab}
+                onMouseEnter={() => setHoveredTab(tab)}
+                onMouseLeave={() => setHoveredTab(null)}
+                style={{
+                  borderBottom:
+                    hoveredTab === tab
+                      ? "2px solid rgba(179, 95, 189, 1)"
+                      : "none",
+                  color: hoveredTab === tab ? "rgba(179, 95, 189, 1)" : "black",
+                }}
+              >
+                {tab.charAt(0).toUpperCase() + tab.slice(1)}
+              </span>
+            ))}
+          </div>
+
+          {/* Posts */}
+          <div className="space-y-4">
+            {posts.map((post) => (
+              <div
+                key={post.id}
+                className="p-4 bg-white rounded-lg shadow-md space-y-2"
+                onClick={() => handlePostClick(post.id)} // Navigate to post details
+              >
+                {/* Post Header */}
+                <div className="flex items-center">
+                  <img
+                    src={profileImg}
+                    alt="Profile"
+                    className="w-10 h-10 rounded-full"
+                  />
+                  <div className="ml-2">
+                    <p className="font-semibold">{post.author}</p>
+                    <p className="text-xs text-gray-500">{post.date}</p>
+                  </div>
+                </div>
+
+                {/* Post Content */}
+                <div className="text-left">
+                  <p className="font-bold">{post.title}</p>
+                  <p className="text-gray-600">{post.content}</p>
+                </div>
+
+                {/* Post Actions */}
+                <div className="flex justify-between text-gray-500 text-sm">
+                  <div
+                    className="flex items-center space-x-2"
+                    onClick={(e) => {
+                      e.stopPropagation(); // Prevents triggering post click event
+                      handleBookmark(post.id);
+                    }}
+                  >
+                    <FaBookmark
+                      className={
+                        post.bookmarks
+                          ? "text-[rgba(179, 95, 189, 1)]"
+                          : "text-gray-500"
+                      }
+                    />
+                    <span>{post.bookmarks}</span>
+                  </div>
+                  <div
+                    className="flex items-center space-x-2"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleLike(post.id);
+                    }}
+                  >
+                    <FaHeart className={post.liked ? "text-red-500" : ""} />
+                    <span>{post.likes}</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <FaComment />
+                    <span>{post.comments}</span>
+                  </div>
                 </div>
               </div>
-              <button className="text-2xl text-gray-400 hover:text-gray-600 transition">
-                ...
+            ))}
+          </div>
+        </div>
+      ) : (
+        selectedPost && ( // Add a check for selectedPost
+          <div>
+            {/* Back Button */}
+            <div className="mb-4">
+              <button
+                className="font-semibold"
+                onClick={goBackToCommunity}
+                style={{
+                  color: "rgba(179, 95, 189, 1)",
+                }}
+              >
+                Back to Community
               </button>
             </div>
-          </div>
-        ))}
-      </div>
 
-      {/* Footer */}
-      <footer className="bg-white shadow-lg py-4 fixed bottom-0 inset-x-0 flex justify-around text-purple-600 border-t border-gray-200">
-        <Link
-          to="/herwaree/calendar"
-          className="flex flex-col items-center text-gray-500 hover:text-purple-700 transition"
-        >
-          <FaHome className="text-2xl" />
-          <span className="text-sm">Home</span>
-        </Link>
-        <Link
-          to="/history"
-          className="flex flex-col items-center text-gray-500 hover:text-purple-700 transition"
-        >
-          <FaHistory className="text-2xl" />
-          <span className="text-sm">History</span>
-        </Link>
-        <Link
-          to="/theme"
-          className="flex flex-col items-center text-gray-500 hover:text-purple-700 transition"
-        >
-          <FaPalette className="text-2xl" />
-          <span className="text-sm">Theme</span>
-        </Link>
-        <Link
-          to="/herwaree/settings"
-          className="flex flex-col items-center text-gray-500 hover:text-purple-700 transition"
-        >
-          <FaCog className="text-2xl" />
-          <span className="text-sm">Settings</span>
-        </Link>
-        <Link
-          to="/herwaree/more"
-          className="flex flex-col items-center text-gray-500 hover:text-purple-700 transition"
-        >
-          <FaEllipsisH className="text-2xl" />
-          <span className="text-sm">More</span>
-        </Link>
-      </footer>
+            <div className="space-y-4">
+              {/* Post Header */}
+              <div className="flex items-center">
+                <img
+                  src={profileImg}
+                  alt="Profile"
+                  className="w-10 h-10 rounded-full"
+                />
+                <div className="ml-2">
+                  <p className="font-semibold">{selectedPost.author}</p>
+                  <p className="text-xs text-gray-500">{selectedPost.date}</p>
+                </div>
+              </div>
+
+              {/* Post Content */}
+              <div className="text-left">
+                <p className="font-bold">{selectedPost.title}</p>
+                <p className="text-gray-600">{selectedPost.fullContent}</p>
+              </div>
+
+              {/* Comments */}
+              <div className="text-left">
+                <h2 className="font-bold">Comments</h2>
+
+                {/* Existing Comments */}
+                {selectedPost.userComments.length > 0 ? (
+                  selectedPost.userComments.map((comment, index) => (
+                    <div
+                      key={index}
+                      className="flex items-start space-x-2 mt-2"
+                    >
+                      <img
+                        src={userAvatar}
+                        alt="User Avatar"
+                        className="w-8 h-8 rounded-full"
+                      />
+                      <div className="bg-gray-100 p-2 rounded-md">
+                        <p>{comment}</p>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <p>No comments yet.</p>
+                )}
+              </div>
+
+              {/* Add a New Comment */}
+              <div className="flex items-center space-x-2 mt-4">
+                <img
+                  src={userAvatar}
+                  alt="User Avatar"
+                  className="w-8 h-8 rounded-full"
+                />
+                <input
+                  type="text"
+                  placeholder="Add a comment..."
+                  value={newComment}
+                  onChange={(e) => setNewComment(e.target.value)}
+                  className="w-full p-2 bg-gray-100 rounded-md focus:outline-none"
+                />
+                <FaPaperPlane
+                  onClick={() => handleAddComment(selectedPost.id)}
+                  className="text-[rgba(179, 95, 189, 1)] cursor-pointer"
+                />
+              </div>
+            </div>
+          </div>
+        )
+      )}
+
+      {/* Bottom Navigation */}
+      <Navigation />
     </div>
   );
 };
 
-export default CommunityForum;
+export default CommunityPage;
