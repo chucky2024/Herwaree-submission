@@ -78,8 +78,8 @@ function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
-        <Route path="/herwaree/front" element={<Front />} />
-        <Route path="/herwaree/SignUp" element={<SignUp />} />
+        <Route path="/" element={<Front />} />
+        <Route path="/herwaree/signUp" element={<SignUp />} />
         <Route path="/herwaree/introduce" element={<Introduce />} />
         <Route path="/herwaree/WeightHeight" element={<WeightHeight />} />
         <Route path="/herwaree/Calendar" element={<Calendar userName={""} />} />
