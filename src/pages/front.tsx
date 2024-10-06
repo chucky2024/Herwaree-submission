@@ -6,6 +6,7 @@ import logo from "../assets/logo.jpg";
 
 const Front: React.FC = () => {
   const navigate = useNavigate();
+
   const handleGetStarted = () => {
     navigate("/herwaree/signUp");
   };
@@ -51,8 +52,8 @@ const Front: React.FC = () => {
         </button>
 
         <a
-          href="herwaree/login"
-          className="text-purple-400 text-base mt-3 block absolute bottom-12 left-1/2 transform -translate-x-1/2"
+          onClick={() => navigate("/herwaree/login")}
+          className="text-purple-400 text-base mt-3 block absolute bottom-12 left-1/2 transform -translate-x-1/2 cursor-pointer"
         >
           Log in and restore data
         </a>

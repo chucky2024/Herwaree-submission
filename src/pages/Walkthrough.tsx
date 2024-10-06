@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaChevronLeft, FaChevronRight, FaTimes } from "react-icons/fa";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 interface Slide {
   type: string;
@@ -94,9 +92,7 @@ const Walkthrough: React.FC = () => {
     if (currentSlide < slides.length - 1) {
       setCurrentSlide(currentSlide + 1);
       setSelectedOption(null);
-      toast.info(`Slide ${currentSlide + 1} completed!`, { autoClose: 1000 });
     } else {
-      toast.success("You've completed the quiz!", { autoClose: 2000 });
       setTimeout(() => {
         navigate("/herwaree/screening");
       }, 2000);
@@ -107,13 +103,11 @@ const Walkthrough: React.FC = () => {
     if (currentSlide > 0) {
       setCurrentSlide(currentSlide - 1);
       setSelectedOption(null);
-      toast.info(`Back to slide ${currentSlide - 1}`, { autoClose: 1000 });
     }
   };
 
   const handleOptionSelect = (option: string) => {
     setSelectedOption(option);
-    toast.success(`Selected: ${option}`, { autoClose: 1000 });
   };
 
   const renderSlideContent = () => {
@@ -205,7 +199,6 @@ const Walkthrough: React.FC = () => {
     <div
       className={`relative flex flex-col items-center justify-center w-full h-screen bg-gradient-to-b ${getBackgroundColor()} overflow-hidden`}
     >
-      <ToastContainer />
       {/* Close Button */}
       <button
         onClick={handleClose}

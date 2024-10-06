@@ -1,27 +1,34 @@
 import React from "react";
-import { useNavigate } from 'react-router-dom';
-import img1 from "../assets/flower.png"; 
-import img2 from "../assets/flower2.png"; 
-import logo from "../assets/Fold.jpg"; 
-import { FaVideo, FaHome, FaHistory, FaCog, FaPalette, FaEllipsisH } from 'react-icons/fa'; 
+import { useNavigate } from "react-router-dom";
+import img1 from "../assets/flower.png";
+import img2 from "../assets/flower2.png";
+import logo from "../assets/Fold.jpg";
+import {
+  FaVideo,
+  FaHome,
+  FaHistory,
+  FaCog,
+  FaPalette,
+  FaEllipsisH,
+} from "react-icons/fa";
 
 const ScreeningExercise: React.FC = () => {
   const navigate = useNavigate();
 
   const handleViewSymptoms = () => {
-    navigate("/herwaree/report-symptoms"); 
+    navigate("/herwaree/report-symptoms");
   };
 
   const handleScreeningExercise = () => {
-    navigate("/herwaree/ScreeningExercise"); 
+    navigate("/herwaree/ScreeningExercise");
   };
 
   const handleGetDoctorsGuide = () => {
-    navigate("/herwaree/doctor-guide"); 
+    navigate("/herwaree/doctors-guide");
   };
 
   const handleVideoClick = () => {
-    navigate("/herwaree/video"); 
+    navigate("/herwaree/video");
   };
 
   return (
@@ -37,42 +44,47 @@ const ScreeningExercise: React.FC = () => {
         className="absolute -inset-y-6 -right-8 w-32 h-32 transform scale-110 drop-shadow-lg"
       />
 
-    
       <div className="text-center z-10 w-full px-8 mb-4">
-        <h1 className="text-purple-500 text-2xl font-bold">
-          SYMPTOMS
-        </h1>
+        <h1 className="text-purple-500 text-2xl font-bold">SYMPTOMS</h1>
         <p className="text-gray-700 text-xl font-normal mt-1">
           Check, Track, Manage
         </p>
       </div>
 
       <div className="relative w-full flex justify-center">
-        <img src={logo} alt="Woman Breast Health" className="inline-block mt-14 w-60 h-auto rounded-xl mb-8" />
+        <img
+          src={logo}
+          alt="Woman Breast Health"
+          className="inline-block mt-14 w-60 h-auto rounded-xl mb-8"
+        />
         <button
           onClick={handleVideoClick}
-          className="absolute top-0 right-7 flex items-center space-x-2 px-4 py-2 bg-purple-500 text-white rounded-full shadow-md focus:outline-none">
-          <FaVideo className="mr-1" /> 
+          className="absolute top-0 right-7 flex items-center space-x-2 px-4 py-2 bg-purple-500 text-white rounded-full shadow-md focus:outline-none"
+        >
+          <FaVideo className="mr-1" />
           <span>Video</span>
         </button>
       </div>
 
       <div className="space-y-4 w-full flex flex-col items-center">
-        <button 
-          onClick={handleViewSymptoms} 
-          className="w-11/12 md:w-3/4 px-6 py-3 bg-purple-500 text-white rounded-full text-lg focus:outline-none">
+        <button
+          onClick={handleViewSymptoms}
+          className="w-11/12 md:w-3/4 px-6 py-3 bg-purple-500 text-white rounded-full text-lg focus:outline-none"
+        >
           View / Report Symptoms
         </button>
 
-        <button 
-          onClick={handleScreeningExercise} 
-          className="w-11/12 md:w-3/4 px-6 py-3 bg-purple-500 text-white rounded-full text-lg focus:outline-none">
+        <button
+          onClick={handleScreeningExercise}
+          className="w-11/12 md:w-3/4 px-6 py-3 bg-purple-500 text-white rounded-full text-lg focus:outline-none"
+        >
           Screening Exercise
         </button>
 
-        <button 
-          onClick={handleGetDoctorsGuide} 
-          className="w-11/12 md:w-3/4 px-6 py-3 bg-purple-500 text-white rounded-full text-lg focus:outline-none">
+        <button
+          onClick={handleGetDoctorsGuide}
+          className="w-11/12 md:w-3/4 px-6 py-3 bg-purple-500 text-white rounded-full text-lg focus:outline-none"
+        >
           Get Doctor's Guide
         </button>
       </div>

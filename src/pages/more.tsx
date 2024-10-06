@@ -1,5 +1,7 @@
 import React from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate from React Router
+
+import { FaChevronLeft } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 // Import your images and icons
 import mammogramImage from "../assets/mammo.png";
@@ -13,14 +15,11 @@ import faqImage from "../assets/faqs.png";
 import storyImage from "../assets/stores.png";
 import img2 from "../assets/flower.png";
 import join from "../assets/join.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
 import Navigation from "../components/navigation";
 
 const MorePage: React.FC = () => {
   const navigate = useNavigate();
-
   return (
     <div className="min-h-screen bg-white text-gray-800 pb-16 relative overflow-x-hidden">
       {/* Header */}
@@ -29,12 +28,16 @@ const MorePage: React.FC = () => {
           <img src={img2} alt="flower" className="object-contain" />
         </div>
 
-        <div className="absolute top-6 left-4">
-          <FontAwesomeIcon
-            icon={faChevronLeft}
-            className="text-2xl text-purple-700 cursor-pointer"
-            onClick={() => navigate(-1)} // Navigate back on click
-          />
+        <div className="absolute top-4 left-4">
+          <div
+            className="p-2 rounded-full"
+            style={{
+              background: "linear-gradient(to right, #b976c5, #b390c9)",
+            }}
+            onClick={() => navigate(-1)}
+          >
+            <FaChevronLeft className="text-2xl text-white cursor-pointer" />
+          </div>
         </div>
 
         {/* More text */}

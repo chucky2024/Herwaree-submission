@@ -5,7 +5,7 @@ import {
   Route,
   createRoutesFromElements,
 } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 // Import the Firebase configuration and auth module
 import { auth } from "../src/components/firebaseConfig";
@@ -53,6 +53,7 @@ import ChatScreen from "./pages/chatbot";
 import Doctors from "./pages/doctors-guide";
 import Donations from "./pages/donation";
 import DonationPage from "./pages/donationpg";
+import Hospitals from "./pages/hospitals";
 
 // App Component
 function App() {
@@ -83,7 +84,6 @@ function App() {
         <Route path="/herwaree/introduce" element={<Introduce />} />
         <Route path="/herwaree/WeightHeight" element={<WeightHeight />} />
         <Route path="/herwaree/Calendar" element={<Calendar userName={""} />} />
-        <Route path="/herwaree/login" element={<Login />} />
         <Route path="/herwaree/yay" element={<Yay />} />
         <Route path="/herwaree/BirthdayPicker" element={<BirthdayPicker />} />
         <Route path="/herwaree/BreastFront" element={<BreastFront />} />
@@ -118,6 +118,8 @@ function App() {
         <Route path="/herwaree/doctors-guide" element={<Doctors />} />
         <Route path="/herwaree/donation" element={<Donations />} />
         <Route path="/herwaree/donationpg" element={<DonationPage />} />
+        <Route path="/herwaree/hospitals" element={<Hospitals />} />
+        <Route path="/herwaree/login" element={<Login />} />
       </>
     )
   );

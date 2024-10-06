@@ -18,7 +18,7 @@ const Check: React.FC = () => {
   };
 
   const handleGetDoctorsGuide = () => {
-    navigate("/herwaree/doctor-guide");
+    navigate("/herwaree/doctors-guide");
   };
 
   const handleMyCalendar = () => {
@@ -42,7 +42,6 @@ const Check: React.FC = () => {
 
       {/* Main Content */}
       <div className="text-center z-10 w-full px-8 mb-6 mt-8">
-        {/* Gradient header text */}
         <h1
           className="text-2xl font-bold"
           style={{

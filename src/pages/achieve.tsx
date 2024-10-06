@@ -58,13 +58,14 @@ const AchieveWithUs: React.FC = () => {
         <img src={img2} alt="flower" className="object-contain" />
       </div>
 
-      {/* Chevron with gradient */}
+      {/* Back */}
       <div className="absolute top-4 left-4">
         <div
           className="p-2 rounded-full"
           style={{
             background: "linear-gradient(to right, #b976c5, #b390c9)",
           }}
+          onClick={() => navigate(-1)}
         >
           <FaChevronLeft className="text-2xl text-white cursor-pointer" />
         </div>

@@ -19,13 +19,11 @@ import img2 from "../assets/flower2.png";
 
 import { Link } from "react-router-dom";
 
-// Define the type for TipCard props
 interface TipCardProps {
   label: string;
   image: string;
 }
 
-// Define the type for SettingsOption props
 interface SettingsOptionProps {
   label: string;
   to: string;
@@ -82,8 +80,8 @@ const SettingsPage: React.FC = () => {
         <SettingsOption label="My Profile" to="/herwaree/profile" />
         <SettingsOption label="Schedule a mammogram" to="/schedule-mammogram" />
         <SettingsOption
-          label="Activities"
-          to="/activities"
+          label="Visit a Clinic"
+          to="/herwaree/hospitals"
           icon={faChartLine}
         />
         <SettingsOption label="Streaks" to="/streaks" icon={faTasks} />

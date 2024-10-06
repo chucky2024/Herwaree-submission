@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaGoogle, FaEye, FaEyeSlash } from "react-icons/fa";
 import img2 from "../assets/flower.png";
-import { useNavigate, Link } from "react-router-dom"; // Use Link for navigation
+import { useNavigate, Link } from "react-router-dom";
 import ConnectWalletButton from "../pages/WalletWidget";
 import Img4 from "../assets/sol.png";
 import ToastNotification from "../components/notif";
@@ -11,8 +11,6 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
-
-// import firebaseConfig from "../components/firebaseConfig";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -34,7 +32,6 @@ const Login: React.FC = () => {
     setShowPassword((prev) => !prev);
   };
 
-  // Clear toast notification after 3 seconds
   useEffect(() => {
     if (toast) {
       const timer = setTimeout(() => {
@@ -61,7 +58,6 @@ const Login: React.FC = () => {
       .then(() => {
         setToast({ type: "success", message: "Login successful!" });
 
-        // Delay navigation to allow toast to display
         setTimeout(() => {
           navigate("/herwaree/introduce");
         }, 2000);
@@ -77,7 +73,7 @@ const Login: React.FC = () => {
       .then(() => {
         setToast({ type: "success", message: "Google login successful!" });
         setTimeout(() => {
-          navigate("/herwaree/introduce");
+          navigate("herwaree/introduce");
         }, 2000);
       })
       .catch((error) => {
@@ -87,7 +83,7 @@ const Login: React.FC = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-white-50 shadow-lg overflow-x-hidden">
-      {toast && <ToastNotification toast={toast} />} {/* Toast Notification */}
+      {toast && <ToastNotification toast={toast} />}
       <div className="p-6 rounded-lg max-w-md w-full overflow-y-auto">
         <h1
           className="text-2xl font-bold text-center mb-8 mt-10"

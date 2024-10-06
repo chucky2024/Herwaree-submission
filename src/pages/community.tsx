@@ -8,7 +8,7 @@ import {
 } from "react-icons/fa";
 import img2 from "../assets/flower2.png";
 import profileImg from "../assets/DoctorsCard.png";
-import userAvatar from "../assets/bullet.png"; // Importing a user avatar image
+import userAvatar from "../assets/bullet.png";
 import Navigation from "../components/navigation";
 
 interface Post {
@@ -117,12 +117,12 @@ const CommunityPage = () => {
             ? {
                 ...post,
                 userComments: [...post.userComments, newComment], // Add new comment
-                comments: post.comments + 1, // Increment comment count
+                comments: post.comments + 1,
               }
             : post
         )
       );
-      setNewComment(""); // Clear comment input after submission
+      setNewComment("");
     }
   };
 
@@ -131,7 +131,6 @@ const CommunityPage = () => {
 
   return (
     <div className="p-4 bg-[#f8f2ff] min-h-screen relative pb-20 overflow-x-hidden">
-      {/* Added padding-bottom for navigation */}
       {/* Top Flower Decoration */}
       <div className="absolute -top-8 -right-10 w-28 h-28">
         <img src={img2} alt="flower" className="object-contain" />
@@ -187,7 +186,7 @@ const CommunityPage = () => {
               <div
                 key={post.id}
                 className="p-4 bg-white rounded-lg shadow-md space-y-2"
-                onClick={() => handlePostClick(post.id)} // Navigate to post details
+                onClick={() => handlePostClick(post.id)}
               >
                 {/* Post Header */}
                 <div className="flex items-center">
@@ -213,7 +212,7 @@ const CommunityPage = () => {
                   <div
                     className="flex items-center space-x-2"
                     onClick={(e) => {
-                      e.stopPropagation(); // Prevents triggering post click event
+                      e.stopPropagation();
                       handleBookmark(post.id);
                     }}
                   >
@@ -246,7 +245,7 @@ const CommunityPage = () => {
           </div>
         </div>
       ) : (
-        selectedPost && ( // Add a check for selectedPost
+        selectedPost && (
           <div>
             {/* Back Button */}
             <div className="mb-4">

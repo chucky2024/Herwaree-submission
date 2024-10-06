@@ -17,7 +17,7 @@ const Introduce: React.FC = () => {
   };
 
   const handleSkip = () => {
-    navigate("/herwaree/default");
+    navigate("/herwaree/yay");
   };
 
   return (
@@ -29,7 +29,8 @@ const Introduce: React.FC = () => {
           style={{
             background: "linear-gradient(to right, #b976c5, #b390c9)",
           }}
-          onClick={() => navigate(-1)} // Navigate back
+          onClick={() => navigate(-1)}
+          // Navigate back
         >
           <FaChevronLeft className="text-2xl text-white cursor-pointer" />
         </div>
