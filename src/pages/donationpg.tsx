@@ -18,7 +18,7 @@ const DonationPage = () => {
       return;
     }
     // Navigate to the confirmation page
-    navigate("/donation-confirmation", { state: { method: selectedMethod } });
+    navigate("/herwaree/donation-confirmation", { state: { method: selectedMethod } });
   };
 
   const handleSelectMethod = (method: string) => {
