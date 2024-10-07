@@ -136,7 +136,7 @@ const Profile: React.FC = () => {
             onChange={(value: unknown) => {
               if (value instanceof Date) {
                 const selectedYear = value.getFullYear();
-                setUser({ yearOfBirth: selectedYear }); // Update year of birth in user context
+                setUser({ yearOfBirth: selectedYear });
               }
               setShowYearPicker(false);
             }}

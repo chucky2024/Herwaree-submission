@@ -1,6 +1,7 @@
 import React from "react";
 import { FaChevronLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import HamburgerMenu from "../components/hamburger";
 
 const WeightHeight: React.FC = () => {
   const navigate = useNavigate();
@@ -23,7 +24,6 @@ const WeightHeight: React.FC = () => {
           <FaChevronLeft className="text-2xl text-white cursor-pointer" />
         </div>
       </div>
-
       {/* Personal Details Heading */}
       <div className="flex flex-col items-center mt-20">
         <h1
@@ -82,7 +82,6 @@ const WeightHeight: React.FC = () => {
           />
         </div>
       </div>
-
       {/* Navigation Dots */}
       <div className="flex justify-center items-center space-x-4 mt-20">
         <span className="h-1 w-6 bg-gray-300 rounded-full"></span>
@@ -96,7 +95,7 @@ const WeightHeight: React.FC = () => {
         <span className="h-1 w-6 bg-gray-300 rounded-full"></span>
         <span className="h-1 w-6 bg-gray-300 rounded-full"></span>
       </div>
-
+      <HamburgerMenu />
       {/* Continue Button */}
       <button
         className="text-white px-4 py-2 rounded-lg w-full max-w-md"

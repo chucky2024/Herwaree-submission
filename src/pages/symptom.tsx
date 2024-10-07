@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaChevronLeft } from "react-icons/fa";
 import img2 from "../assets/flower2.png";
+import HamburgerMenu from "../components/hamburger";
 
 const SymptomTracker: React.FC = () => {
   const [selectedSymptoms, setSelectedSymptoms] = useState<string[]>([]);
@@ -52,11 +53,9 @@ const SymptomTracker: React.FC = () => {
           <FaChevronLeft className="text-2xl text-white cursor-pointer" />
         </div>
       </div>
-
       <div className="absolute -top-12 -right-10 w-28 h-28">
         <img src={img2} alt="flower" className="object-contain" />
       </div>
-
       <h2
         className="text-lg font-semibold text-center mt-14 mb-4"
         style={{
@@ -68,7 +67,6 @@ const SymptomTracker: React.FC = () => {
       >
         Do you experience any symptoms before or during your period?
       </h2>
-
       <div className="flex flex-col space-y-4 mb-8">
         {symptoms.map((symptom) => (
           <button
@@ -90,7 +88,6 @@ const SymptomTracker: React.FC = () => {
           </button>
         ))}
       </div>
-
       <h2
         className="text-lg font-semibold text-center mb-4"
         style={{
@@ -102,7 +99,6 @@ const SymptomTracker: React.FC = () => {
       >
         Have you noticed changes in your cycle recently?
       </h2>
-
       <div className="flex flex-col space-y-4">
         {cycleOptions.map((option) => (
           <button
@@ -125,7 +121,6 @@ const SymptomTracker: React.FC = () => {
           </button>
         ))}
       </div>
-
       <div className="flex justify-center space-x-2 my-6">
         {[...Array(6)].map((_, idx) => (
           <div
@@ -138,7 +133,6 @@ const SymptomTracker: React.FC = () => {
           ></div>
         ))}
       </div>
-
       <div className="flex justify-between items-center mt-6">
         <button
           onClick={handleNotSure}
@@ -156,6 +150,7 @@ const SymptomTracker: React.FC = () => {
           Confirm
         </button>
       </div>
+      <HamburgerMenu />
     </div>
   );
 };

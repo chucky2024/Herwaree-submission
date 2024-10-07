@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { FaChevronLeft } from "react-icons/fa";
 import img2 from "../assets/flower2.png";
+import HamburgerMenu from "../components/hamburger";
 
 const CycleTracker: React.FC = () => {
   const [selectedCycle, setSelectedCycle] = useState<string | null>(null);
@@ -48,12 +49,10 @@ const CycleTracker: React.FC = () => {
           <FaChevronLeft className="text-2xl text-white cursor-pointer" />
         </div>
       </div>
-
       {/* Flower Decoration */}
       <div className="absolute -top-12 -right-10 w-28 h-28">
         <img src={img2} alt="flower" className="object-contain" />
       </div>
-
       {/* Question 1 */}
       <h2
         className="text-lg font-semibold text-center mt-12 mb-4"
@@ -88,7 +87,6 @@ const CycleTracker: React.FC = () => {
           </button>
         ))}
       </div>
-
       {/* Question 2 */}
       <h2
         className="text-lg font-semibold text-center mb-4"
@@ -123,7 +121,6 @@ const CycleTracker: React.FC = () => {
           </button>
         ))}
       </div>
-
       {/* Pagination Dots */}
       <div className="flex justify-center space-x-2 my-6">
         {[...Array(6)].map((_, idx) => (
@@ -137,7 +134,6 @@ const CycleTracker: React.FC = () => {
           ></div>
         ))}
       </div>
-
       {/* Footer Buttons */}
       <div className="flex justify-between items-center mt-6">
         <button
@@ -156,6 +152,7 @@ const CycleTracker: React.FC = () => {
           Confirm
         </button>
       </div>
+      <HamburgerMenu />
     </div>
   );
 };

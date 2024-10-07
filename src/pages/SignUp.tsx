@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -20,10 +21,13 @@ const SignUp: React.FC = () => {
   const [showWalletWidget, setShowWalletWidget] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [walletAddress, setWalletAddress] = useState<string | null>(null); // Store wallet address
   const [toast, setToast] = useState<Toast | null>(null);
+  const [isConfirmingWallet, setIsConfirmingWallet] = useState<boolean>(false); // Confirmation step
   const navigate = useNavigate();
   const auth = getAuth();
 
+  // Show toast notification
   const showToast = (type: "success" | "error", message: string) => {
     setToast({ type, message });
     setTimeout(() => {
@@ -31,6 +35,7 @@ const SignUp: React.FC = () => {
     }, 3000);
   };
 
+  // Email sign-up handler
   const handleSignUp = async () => {
     if (!email || !password) {
       showToast("error", "Please enter both email and password.");
@@ -48,63 +53,45 @@ const SignUp: React.FC = () => {
         email,
         password
       );
-      console.log("User ID:", userCredential.user.uid);
-
-      // const response = await fetch("http://localhost:5000/herwaree/SignUp", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({
-      //     userId: userCredential.user.uid,
-      //     email,
-      //     password,
-      //   }),
-      // });
-
-      // if (!response.ok) {
-      //   const errorData = await response.json().catch(() => null);
-      //   const errorMessage = errorData?.message || "Sign up failed.";
-      //   showToast("error", errorMessage);
-      //   return;
-      // }
-
       showToast("success", "Sign up successful!");
       setTimeout(() => {
         navigate("/herwaree/introduce");
       }, 2000);
     } catch (error) {
-      console.error("Error signing up:", error);
       showToast("error", "Something went wrong. Please try again.");
     }
   };
 
+  // Google sign-up handler
   const handleGoogleSignUp = async () => {
     const provider = new GoogleAuthProvider();
     try {
       const userCredential = await signInWithPopup(auth, provider);
-      console.log("Google User ID:", userCredential.user.uid);
-
       showToast("success", "Google sign-up successful!");
       setTimeout(() => {
         navigate("/herwaree/introduce");
       }, 2000);
     } catch (error) {
-      console.error("Error signing up with Google:", error);
       showToast("error", "Google sign-up failed. Please try again.");
     }
   };
 
+  // Wallet sign-up handler
   const handleWalletSignUp = async (walletAddress: string) => {
+    setWalletAddress(walletAddress); // Store wallet address
+    setIsConfirmingWallet(true); // Move to confirmation step
+  };
+
+  // Confirm wallet sign-up
+  const confirmWallet = async () => {
+    if (!walletAddress) return; // Safety check
     try {
       const response = await fetch("http://localhost:5000/herwaree/SignUp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          walletAddress,
-        }),
+        body: JSON.stringify({ walletAddress }), // Send wallet address
       });
 
       if (response.ok) {
@@ -113,13 +100,17 @@ const SignUp: React.FC = () => {
           navigate("/herwaree/introduce");
         }, 2000);
       } else {
-        const errorData = await response.json().catch(() => null);
-        showToast("error", errorData?.message || "Wallet sign-up failed.");
+        showToast("error", "Wallet sign-up failed.");
       }
     } catch (error) {
-      console.error("Error signing up with wallet:", error);
       showToast("error", "Something went wrong with wallet sign-up.");
     }
+  };
+
+  // Reset wallet state to allow reconnect
+  const resetWallet = () => {
+    setWalletAddress(null);
+    setIsConfirmingWallet(false);
   };
 
   return (
@@ -152,7 +143,6 @@ const SignUp: React.FC = () => {
         <div className="mb-4">
           <label
             className="block text-xl font-bold mb-2 bg-clip-text text-transparent"
-            htmlFor="email"
             style={{
               backgroundImage: "linear-gradient(to right, #b976c5, #b390c9)",
             }}
@@ -160,20 +150,17 @@ const SignUp: React.FC = () => {
             Email
           </label>
           <input
-            id="email"
             type="email"
             placeholder="Type your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
-            required
           />
         </div>
 
         <div className="mb-6">
           <label
             className="block text-xl font-bold mb-2 bg-clip-text text-transparent"
-            htmlFor="password"
             style={{
               backgroundImage: "linear-gradient(to right, #b976c5, #b390c9)",
             }}
@@ -181,18 +168,12 @@ const SignUp: React.FC = () => {
             Password
           </label>
           <input
-            id="password"
             type="password"
             placeholder="Set a password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
-            minLength={8}
-            required
           />
-          <p className="text-gray-600 text-lg mt-2">
-            Password must be at least 8 characters
-          </p>
         </div>
 
         <button
@@ -217,18 +198,45 @@ const SignUp: React.FC = () => {
           Sign up with Google
         </button>
 
-        <button
-          onClick={() => setShowWalletWidget(!showWalletWidget)}
-          className="flex items-center text-xl justify-center w-full text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors"
-          style={{
-            backgroundImage: "linear-gradient(to right, #b976c5, #b390c9)",
-          }}
-        >
-          Connect Wallet
-        </button>
-
-        {showWalletWidget && (
-          <ConnectWalletButton onWalletConnect={handleWalletSignUp} />
+        {walletAddress && isConfirmingWallet ? (
+          <>
+            <p className="text-center text-gray-700">
+              Connected wallet: {walletAddress}
+            </p>
+            <button
+              onClick={confirmWallet}
+              className="w-full text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors"
+              style={{
+                backgroundImage: "linear-gradient(to right, #b976c5, #b390c9)",
+              }}
+            >
+              Confirm Wallet
+            </button>
+            <button
+              onClick={resetWallet}
+              className="w-full text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-colors"
+              style={{
+                backgroundImage: "linear-gradient(to right, #ff6b6b, #ff9e9e)",
+              }}
+            >
+              Disconnect & Reconnect Wallet
+            </button>
+          </>
+        ) : (
+          <>
+            <button
+              onClick={() => setShowWalletWidget(!showWalletWidget)}
+              className="flex items-center text-xl justify-center w-full text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors"
+              style={{
+                backgroundImage: "linear-gradient(to right, #b976c5, #b390c9)",
+              }}
+            >
+              Connect Wallet
+            </button>
+            {showWalletWidget && (
+              <ConnectWalletButton onWalletConnect={handleWalletSignUp} />
+            )}
+          </>
         )}
       </div>
     </div>

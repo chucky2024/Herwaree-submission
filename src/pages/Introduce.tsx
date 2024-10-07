@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import Hamburger from "../components/hamburger";
 import { AiOutlineEllipsis } from "react-icons/ai";
 import { FaChevronLeft } from "react-icons/fa";
 
@@ -86,6 +86,7 @@ const Introduce: React.FC = () => {
           </button>
         </div>
       </div>
+      <Hamburger />
     </div>
   );
 };

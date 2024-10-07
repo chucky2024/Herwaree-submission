@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
 import { FaGoogle, FaEye, FaEyeSlash } from "react-icons/fa";
-import img2 from "../assets/flower.png";
 import { useNavigate, Link } from "react-router-dom";
 import ConnectWalletButton from "../pages/WalletWidget";
 import Img4 from "../assets/sol.png";
 import ToastNotification from "../components/notif";
+
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -23,9 +24,6 @@ const Login: React.FC = () => {
   } | null>(null);
 
   const navigate = useNavigate();
-
-  // const app = initializeApp(firebaseConfig);
-
   const auth = getAuth();
 
   const togglePasswordVisibility = () => {
@@ -42,6 +40,7 @@ const Login: React.FC = () => {
     }
   }, [toast]);
 
+  // Email and password submit handler
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -63,28 +62,31 @@ const Login: React.FC = () => {
         }, 2000);
       })
       .catch((error) => {
-        setToast({ type: "error", message: error.message });
+        console.error("Login error:", error);
+        setToast({ type: "error", message: (error as any).message }); // Type assertion for the error message
       });
   };
 
-  const handleGoogleLogin = () => {
+  // Google login handler
+  const handleGoogleLogin = async () => {
     const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
-      .then(() => {
-        setToast({ type: "success", message: "Google login successful!" });
-        setTimeout(() => {
-          navigate("herwaree/introduce");
-        }, 2000);
-      })
-      .catch((error) => {
-        setToast({ type: "error", message: error.message });
-      });
+    try {
+      await signInWithPopup(auth, provider);
+      setToast({ type: "success", message: "Google login successful!" });
+      setTimeout(() => {
+        navigate("/herwaree/introduce");
+      }, 2000);
+    } catch (error) {
+      console.error("Google login error:", error);
+      setToast({ type: "error", message: (error as any).message });
+    }
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-white-50 shadow-lg overflow-x-hidden">
+    <div className="flex justify-center items-center min-h-screen bg-white-50 overflow-x-hidden">
       {toast && <ToastNotification toast={toast} />}
-      <div className="p-6 rounded-lg max-w-md w-full overflow-y-auto">
+
+      <div className="relative p-6 rounded-lg max-w-md w-full">
         <h1
           className="text-2xl font-bold text-center mb-8 mt-10"
           style={{
@@ -100,19 +102,17 @@ const Login: React.FC = () => {
           Enter your email and password to login to Herwaree
         </p>
 
-        <div className="absolute -top-12 -right-10 w-28 h-28">
-          <img src={img2} alt="flower" className="object-contain" />
-        </div>
-
+        {/* Google Login Button */}
         <button
           type="button"
-          onClick={handleGoogleLogin} // Handle Google login
+          onClick={handleGoogleLogin}
           className="flex items-center justify-center w-full bg-white text-gray-700 py-2 px-4 rounded-lg border border-gray-300 mb-4 hover:bg-gray-100"
         >
           <FaGoogle className="h-5 w-5 mr-2" />
           Continue with Google
         </button>
 
+        {/* Email & Password Form */}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label
@@ -181,6 +181,7 @@ const Login: React.FC = () => {
           </button>
         </form>
 
+        {/* Signup Redirect */}
         <p className="text-center text-gray-500 mt-6">
           Don't have an account?{" "}
           <Link
@@ -196,9 +197,10 @@ const Login: React.FC = () => {
           </Link>
         </p>
 
+        {/* Wallet Login Button */}
         <div className="text-center mt-4">
           <button
-            onClick={() => setShowWalletWidget(!showWalletWidget)} // Toggle WalletWidget visibility
+            onClick={() => setShowWalletWidget(!showWalletWidget)}
             className="w-full flex items-center justify-center py-2 rounded-lg mt-2 transition-colors"
             style={{
               backgroundImage: "linear-gradient(to right, #b976c5, #b390c9)",
@@ -210,6 +212,7 @@ const Login: React.FC = () => {
           </button>
         </div>
 
+        {/* Wallet Connect Widget */}
         {showWalletWidget && (
           <div className="flex justify-center mt-8">
             <div className="p-4 bg-purple-100 rounded-lg">

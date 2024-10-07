@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FaChevronLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import img2 from "../assets/flower2.png";
+import HamburgerMenu from "../components/hamburger";
 
 const FlowChanges: React.FC = () => {
   const [selectedFlow, setSelectedFlow] = useState<string | null>(null);
@@ -147,6 +148,7 @@ const FlowChanges: React.FC = () => {
           Confirm
         </button>
       </div>
+      <HamburgerMenu />
     </div>
   );
 };

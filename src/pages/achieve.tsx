@@ -5,6 +5,7 @@ import wom from "../assets/wom.png";
 import sta from "../assets/sta.png";
 import img2 from "../assets/flower.png";
 import { useNavigate } from "react-router-dom";
+import HamburgerMenu from "../components/hamburger";
 
 const AchieveWithUs: React.FC = () => {
   const [selectedOption, setSelectedOption] = React.useState<string | null>(
@@ -57,7 +58,6 @@ const AchieveWithUs: React.FC = () => {
       <div className="absolute -top-8 -right-10 w-28 h-28">
         <img src={img2} alt="flower" className="object-contain" />
       </div>
-
       {/* Back */}
       <div className="absolute top-4 left-4">
         <div
@@ -70,7 +70,6 @@ const AchieveWithUs: React.FC = () => {
           <FaChevronLeft className="text-2xl text-white cursor-pointer" />
         </div>
       </div>
-
       <div className="pt-16 px-4">
         {/* Title with gradient */}
         <h1
@@ -87,7 +86,6 @@ const AchieveWithUs: React.FC = () => {
           We have amazing features you could enjoy with us anytime
         </p>
       </div>
-
       <div className="px-4 space-y-4">
         {options.map((option, idx) => (
           <div
@@ -140,12 +138,10 @@ const AchieveWithUs: React.FC = () => {
           </div>
         ))}
       </div>
-
       <p className="text-center text-sm text-gray-500 mt-4 px-4">
         Engaging streaks and incentives and educational resources made available
         for you, yay!
       </p>
-
       {/* Confirm button with gradient */}
       <div className="mt-6 px-4">
         <button
@@ -158,6 +154,7 @@ const AchieveWithUs: React.FC = () => {
           Confirm
         </button>
       </div>
+      <HamburgerMenu />
     </div>
   );
 };

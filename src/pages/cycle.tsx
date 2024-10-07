@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { FaChevronLeft } from "react-icons/fa";
 import img2 from "../assets/flower.png";
+import HamburgerMenu from "../components/hamburger";
 
 const Cycle = () => {
   const [selectedDuration, setSelectedDuration] = useState("");
@@ -137,6 +138,7 @@ const Cycle = () => {
           </button>
         </div>
       </div>
+      <HamburgerMenu />
     </div>
   );
 };

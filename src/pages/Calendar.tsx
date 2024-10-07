@@ -12,6 +12,7 @@ import {
 } from "date-fns";
 
 import Navigation from "../components/navigation";
+import HamburgerMenu from "../components/hamburger";
 
 interface CalendarProps {
   userName: string;
@@ -142,7 +143,6 @@ const Calendar: React.FC<CalendarProps> = ({ userName }) => {
       <div className="text-center text-3xl font-bold text-purple-600 mb-6">
         <h2>{userName}</h2>
       </div>
-
       <div className="mb-6">
         <p className="text-lg font-medium text-purple-400 mb-4">
           Hello {userName}, please update your cycle details:
@@ -182,7 +182,6 @@ const Calendar: React.FC<CalendarProps> = ({ userName }) => {
           </div>
         </div>
       </div>
-
       {/* Circular Tracker */}
       <div className="flex justify-center items-center mb-8">
         <div
@@ -198,7 +197,6 @@ const Calendar: React.FC<CalendarProps> = ({ userName }) => {
           </div>
         </div>
       </div>
-
       <div className="mb-8">
         <div className="flex justify-between items-center mb-4">
           <button
@@ -227,7 +225,6 @@ const Calendar: React.FC<CalendarProps> = ({ userName }) => {
           {renderCalendarDays()}
         </div>
       </div>
-
       <div className="mt-8">
         <h4 className="text-lg font-semibold text-gray-700 mb-4">
           Prediction Key:
@@ -251,10 +248,10 @@ const Calendar: React.FC<CalendarProps> = ({ userName }) => {
           </div>
         </div>
       </div>
-
       <div className="fixed bottom-0 left-0 right-0 bg-white p-4 shadow-lg">
         <Navigation />
       </div>
+      <HamburgerMenu />;
     </div>
   );
 };

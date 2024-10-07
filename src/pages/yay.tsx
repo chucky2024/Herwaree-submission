@@ -4,6 +4,7 @@ import img2 from "../assets/flower2.png";
 import { AiOutlineEllipsis } from "react-icons/ai";
 import { FaChevronLeft } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
+import HamburgerMenu from "../components/hamburger";
 
 const Yay: React.FC = () => {
   const location = useLocation();
@@ -16,19 +17,20 @@ const Yay: React.FC = () => {
 
   return (
     <div className="relative flex flex-col items-center justify-between h-screen p-6 bg-white overflow-x-hidden">
-      {/* Chevron Left with Gradient */}
+      <HamburgerMenu />
+
       <div className="absolute top-4 left-4">
         <div
           className="p-2 rounded-full"
           style={{
             background: "linear-gradient(to right, #b976c5, #b390c9)",
           }}
+          onClick={() => navigate(-1)}
         >
           <FaChevronLeft className="text-2xl text-white cursor-pointer" />
         </div>
       </div>
 
-      {/* Hello Name Text with Gradient (excluding emoji) */}
       <div className="text-center mt-16 px-4">
         <h1 className="text-4xl font-bold mb-2">
           <span
@@ -59,7 +61,6 @@ const Yay: React.FC = () => {
         />
       </div>
 
-      {/* Continue Button with Gradient */}
       <div className="flex flex-col items-center mb-6">
         <AiOutlineEllipsis className="text-5xl text-gray-400 mb-4" />
         <button

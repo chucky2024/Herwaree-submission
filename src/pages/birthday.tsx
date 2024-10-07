@@ -6,8 +6,9 @@ import img2 from "../assets/flower2.png";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import HamburgerMenu from "../components/hamburger";
 
-type Value = Date | Date[] | [Date, Date] | null; // Define Value here if you didn't create a separate declaration file
+type Value = Date | Date[] | [Date, Date] | null;
 
 const BirthdayPicker: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -51,6 +52,7 @@ const BirthdayPicker: React.FC = () => {
           style={{
             background: "linear-gradient(to right, #b976c5, #b390c9)",
           }}
+          onClick={() => navigate(-1)}
         >
           <FaChevronLeft className="text-2xl text-white cursor-pointer" />
         </div>
@@ -119,11 +121,10 @@ const BirthdayPicker: React.FC = () => {
           Confirm
         </button>
       </div>
-
       <div className="absolute -top-8 -right-10 w-28 h-28">
         <img src={img2} alt="flower" className="object-contain" />
       </div>
-
+      <HamburgerMenu />
       <div className="absolute bottom-5 left-4 w-20 h-20 bg-purple-300 rounded-full transform -translate-x-1/2 translate-y-1/2"></div>
 
       <div className="absolute -right-11 top-60 w-20 h-20 bg-purple-300 rounded-full"></div>
