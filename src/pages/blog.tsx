@@ -54,8 +54,8 @@ const blogs = [
 const Home = () => {
   const navigate = useNavigate();
 
-  const navigateToArticle = (id: number) => {
-    navigate(`/article/${id}`);
+  const navigateToComingSoon = () => {
+    navigate("/herwaree/ComingSoon");
   };
 
   return (
@@ -69,7 +69,7 @@ const Home = () => {
           <div
             key={blog.id}
             className="mb-6 bg-white rounded-lg shadow-lg p-4 cursor-pointer hover:shadow-xl transition-shadow duration-300"
-            onClick={() => navigateToArticle(blog.id)}
+            onClick={navigateToComingSoon} // Updated here
           >
             <h3 className="text-md font-bold text-purple-600 mb-2">
               {blog.category}
@@ -89,6 +89,8 @@ const Home = () => {
             </div>
           </div>
         ))}
+
+        {/* Additional content sections remain unchanged... */}
       </div>
 
       <footer className="bg-white shadow-md py-4 fixed bottom-0 inset-x-0 flex justify-around border-t border-purple-200">
@@ -108,7 +110,7 @@ const Home = () => {
         </Link>
         <Link
           to="/theme"
-          className="flex flex-col items-center  text-gray-600 group-hover:text-purple-600"
+          className="flex flex-col items-center text-gray-600 group-hover:text-purple-600"
         >
           <FaPalette className="text-2xl" />
           <span className="text-sm">Theme</span>

@@ -55,13 +55,14 @@ import Donations from "./pages/donation";
 import DonationPage from "./pages/donationpg";
 import Hospitals from "./pages/hospitals";
 import DonationConfirmation from "./pages/donation-confirmation";
+import ComingSoon from "./pages/ComingSoon";
 
 // App Component
 function App() {
   const [isFirebaseInitialized, setIsFirebaseInitialized] = useState(false);
 
   useEffect(() => {
-    //  Firebase initialization with Firebase Auth
+    // Firebase initialization with Firebase Auth
     const checkFirebaseInitialization = () => {
       const unsubscribe = onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -121,10 +122,8 @@ function App() {
         <Route path="/herwaree/donationpg" element={<DonationPage />} />
         <Route path="/herwaree/hospitals" element={<Hospitals />} />
         <Route path="/herwaree/login" element={<Login />} />
-        <Route
-          path="/herwaree/donation-confirmation"
-          element={<DonationConfirmation />}
-        />
+        <Route path="/herwaree/donation-confirmation" element={<DonationConfirmation />} />
+        <Route path="/herwaree/comingsoon" element={<ComingSoon />} /> {/* Updated route */}
       </>
     )
   );

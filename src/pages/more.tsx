@@ -1,5 +1,4 @@
 import React from "react";
-
 import { FaChevronLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
@@ -59,13 +58,14 @@ const MorePage: React.FC = () => {
           <div className="flex-1 flex flex-col items-center text-center">
             <h2 className="text-white font-semibold text-xl">HERWAREE</h2>
             <p className="text-white mt-4">
-              {" "}
-              {/* Increased margin-top to create space */}
               Set of features to keep track of health working as an insurance
               card.
             </p>
             <div className="mt-4">
-              <button className="bg-white text-purple-600 rounded-md px-6 py-2">
+              <button
+                className="bg-white text-purple-600 rounded-md px-6 py-2"
+                onClick={() => navigate("/herwaree/comingsoon")} // Navigate to Coming Soon
+              >
                 Admin
               </button>
             </div>
@@ -76,11 +76,11 @@ const MorePage: React.FC = () => {
         <Section
           title="Breast Health Monitoring Tools"
           items={[
-            { label: "Mammograms", img: mammogramImage, path: "/mammograms" },
+            { label: "Mammograms", img: mammogramImage, path: "/herwaree/comingsoon" },
             {
               label: "Self-examination",
               img: selfExamImage,
-              path: "/herwaree/self-examination",
+              path: "/herwaree/comingsoon",
             },
           ]}
         />
@@ -92,24 +92,23 @@ const MorePage: React.FC = () => {
             {
               label: "Learn about Tampons",
               img: tamponImage,
-              path: "/herwaree/tampons",
+              path: "/herwaree/comingsoon",
             },
             {
               label: "Fertility Tracking",
               img: fertilityImage,
-              path: "/herwaree/fertility-tracking",
+              path: "/herwaree/comingsoon",
             },
           ]}
         />
 
         {/* Learn with Herware */}
-
         <Section
           title="Learn with Herware"
           items={[
             { label: "Video", img: videoImage, path: "/herwaree/video" },
             { label: "Blogs", img: blogImage, path: "/herwaree/blog" },
-            { label: "Books", img: bookImage, path: "/herwaree/books" },
+            { label: "Books", img: bookImage, path: "/herwaree/comingsoon" },
           ]}
         />
 
@@ -117,8 +116,8 @@ const MorePage: React.FC = () => {
         <Section
           title="Educational Resources"
           items={[
-            { label: "FAQs", img: faqImage, path: "/herwaree/faqs" },
-            { label: "Stories", img: storyImage, path: "/herwaree/stories" },
+            { label: "FAQs", img: faqImage, path: "/herwaree/comingsoon" },
+            { label: "Stories", img: storyImage, path: "/herwaree/comingsoon" },
           ]}
         />
       </div>

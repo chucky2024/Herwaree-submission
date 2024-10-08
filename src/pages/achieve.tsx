@@ -8,9 +8,7 @@ import { useNavigate } from "react-router-dom";
 import HamburgerMenu from "../components/hamburger";
 
 const AchieveWithUs: React.FC = () => {
-  const [selectedOption, setSelectedOption] = React.useState<string | null>(
-    null
-  );
+  const [selectedOption, setSelectedOption] = React.useState<string | null>(null);
   const navigate = useNavigate();
 
   const options = [
@@ -46,6 +44,12 @@ const AchieveWithUs: React.FC = () => {
         break;
       case "Breast Health Monitoring":
         navigate("/herwaree/BreastFront");
+        break;
+        case "I'm really not sure what I want":
+          navigate("/herwaree/more");
+          break;  
+      case "Holistic Wellness Coaching":
+        navigate("/herwaree/comingsoon"); // Navigate to Coming Soon
         break;
       default:
         navigate("/herwaree/more");
@@ -145,11 +149,14 @@ const AchieveWithUs: React.FC = () => {
       {/* Confirm button with gradient */}
       <div className="mt-6 px-4">
         <button
-          className="w-full py-3 text-white rounded-lg font-semibold transition"
+          className={`w-full py-3 text-white rounded-lg font-semibold transition ${
+            !selectedOption ? "opacity-50 cursor-not-allowed" : ""
+          }`}
           style={{
             background: "linear-gradient(to right, #b976c5, #b390c9)",
           }}
           onClick={handleConfirm}
+          disabled={!selectedOption} // Disable button if no option is selected
         >
           Confirm
         </button>

@@ -7,6 +7,7 @@ import img5 from "../assets/arrow.png";
 import cryptoImg from "../assets/btc.png"; // Cryptocurrency icon
 import fiatImg from "../assets/moneywing.png"; // Fiat Currency icon
 import { FaChevronLeft } from "react-icons/fa";
+// https://sandbox.flutterwave.com/donate/bjmujrrmbmsk
 
 const DonationPage = () => {
   const navigate = useNavigate();
@@ -17,9 +18,14 @@ const DonationPage = () => {
       alert("Please select a payment method!");
       return;
     }
-    // Navigate to the confirmation page
-    navigate("/herwaree/donation-confirmation", { state: { method: selectedMethod } });
+    // Open the donation link in a new tab
+    window.open("https://dial.to/?action=solana-action%3Ahttps%3A%2F%2Fblinks-ten.vercel.app%2Fapi%2Factions&cluster=devnet", "_blank", "noopener,noreferrer");
   };
+
+
+  const donationLink = selectedMethod === "fiat" ? "https://sandbox.flutterwave.com/donate/bjmujrrmbmsk" : "https://dial.to/?action=solana-action%3Ahttps%3A%2Fblinks-ten.vercel.app%2Fapi%2Factions&cluster=devnet";
+  window.open(donationLink, "_blank", "noopener,noreferrer");
+
 
   const handleSelectMethod = (method: string) => {
     setSelectedMethod(method);

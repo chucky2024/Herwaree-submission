@@ -1,10 +1,11 @@
 import React from "react";
 import Vid from "../assets/video.mp4";
+import './Video.css';
 
 const Video: React.FC = () => {
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <video className="w-full max-w-4xl h-auto" controls>
+    <div className="video-container">
+      <video className="video-player" controls>
         <source src={Vid} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
