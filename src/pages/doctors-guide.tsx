@@ -54,7 +54,7 @@ const Doctors: React.FC = () => {
             key={index}
             doctor={doctor}
             onBookSession={handleBookSession}
-            type: {"handleBookSession"}
+        
           />
         ))}
       </div>

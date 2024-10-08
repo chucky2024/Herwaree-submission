@@ -2,16 +2,17 @@ import React from "react";
 
 import Doc from "../assets/DoctorsCard.png";
 
-interface DoctorProps {
+interface DoctorCardProps {
   doctor: {
     name: string;
     specialty: string;
     description: string;
     location: string;
   };
+  onBookSession: (name: string) => void;
 }
 
-const DoctorCard: React.FC<DoctorProps> = ({ doctor }) => {
+const DoctorCard: React.FC<DoctorCardProps> = ({ doctor, onBookSession }) => {
   return (
     <div className="bg-white rounded-lg shadow-md mb-6 p-4">
       <div className="flex items-center">

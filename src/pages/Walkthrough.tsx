@@ -95,7 +95,7 @@ const Walkthrough: React.FC = () => {
     } else {
       setTimeout(() => {
         navigate("/herwaree/screening");
-      }, 2000);
+      }, 20000);
     }
   };
 

@@ -20,7 +20,7 @@ const BirthdayPicker: React.FC = () => {
       toast.success("Date confirmed successfully!", { position: "top-center" });
       setTimeout(() => {
         navigate("/herwaree/achieve");
-      }, 2000);
+      }, 1000);
     } else {
       toast.error("Please select a date first.", { position: "top-center" });
     }
